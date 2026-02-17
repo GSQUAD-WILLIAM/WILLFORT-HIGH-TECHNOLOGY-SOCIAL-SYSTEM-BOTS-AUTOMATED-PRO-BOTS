@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Social Media Bot - Payment Modal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: rgba(0, 0, 0, 0.5);
+            min-height: 100vh;
+            padding: 10px;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-container {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            background: #fff0f5;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            animation: modalSlideIn 0.3s ease;
+            position: relative;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            color: white;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+        
+        .modal-close {
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+            font-weight: 500;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+            border-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-close:active {
+            transform: scale(0.95);
+            background: rgba(255, 255, 255, 0.4);
+        }
+        
+        .modal-close svg {
+            width: 22px;
+            height: 22px;
+            fill: white;
+            transition: transform 0.2s ease;
+        }
+        
+        .modal-close:hover svg {
+            transform: translateX(3px);
+        }
+        
+        .modal-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #e6f0ff 0%, #b8d4ff 100%);
+            padding: 12px 16px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            border: 2px solid #1e4b8f;
+        }
+        
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+        
+        .user-details {
+            flex: 1;
+            min-width: 0;
+        }
+        
+        .username {
+            font-weight: 700;
+            font-size: 14px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            color: #0a2647;
+        }
+        
+        .plan-info {
+            font-size: 12px;
+            color: #1e4b8f;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+        
+        .currency-info {
+            font-size: 11px;
+            color: #b13e66;
+            margin-top: 2px;
+            font-weight: 700;
+        }
+        
+        .plans-section {
+            background: #ffe4ec;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            border: 2px solid #d84c7a;
+        }
+        
+        .section-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #000000;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 4px;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 18px;
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 12px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        
+        .plans-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .plan-card {
+            background: linear-gradient(135deg, #e6f0ff 0%, #cce0ff 100%);
+            border-radius: 14px;
+            padding: 16px;
+            border: 2px solid #1e4b8f;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .plan-card.popular {
+            border-color: #b13e66;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff99aa 100%);
+            color: #000000;
+        }
+        
+        .plan-card.popular::before {
+            content: 'Most Popular';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #b13e66;
+            color: #ffffff;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 800;
+        }
+        
+        .plan-name {
+            font-size: 16px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: #0a2647;
+        }
+        
+        .plan-price {
+            font-size: 24px;
+            font-weight: 900;
+            margin-bottom: 4px;
+            line-height: 1;
+            color: #0a2647;
+        }
+        
+        .plan-price span {
+            font-size: 12px;
+            font-weight: 700;
+            opacity: 0.9;
+            color: #1e4b8f;
+        }
+        
+        .plan-currency {
+            font-size: 11px;
+            color: #1e4b8f;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+        
+        .plan-card.popular .plan-currency {
+            color: #000000;
+            font-weight: 800;
+        }
+        
+        .plan-features {
+            list-style: none;
+            margin-bottom: 16px;
+            flex-grow: 1;
+        }
+        
+        .plan-features li {
+            padding: 6px 0;
+            border-bottom: 1px solid #1e4b8f;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #000000;
+            font-weight: 600;
+        }
+        
+        .plan-card.popular .plan-features li {
+            border-bottom: 1px solid #b13e66;
+            color: #000000;
+            font-weight: 700;
+        }
+        
+        .check-icon {
+            color: #1e4b8f;
+            font-size: 14px;
+            flex-shrink: 0;
+            font-weight: 900;
+        }
+        
+        .plan-card.popular .check-icon {
+            color: #000000;
+        }
+        
+        .plan-button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            color: white;
+            margin-top: auto;
+        }
+        
+        .plan-card.popular .plan-button {
+            background: #b13e66;
+            color: #ffffff;
+            font-weight: 800;
+        }
+        
+        .payment-methods-section {
+            background: #ffe4ec;
+            border-radius: 18px;
+            padding: 16px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d84c7a;
+        }
+        
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .payment-method {
+            background: #fff0f5;
+            border-radius: 14px;
+            padding: 14px;
+            border: 2px solid #d84c7a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 80px;
+        }
+        
+        .payment-method.active {
+            border-color: #b13e66;
+            background: linear-gradient(135deg, #ffb6c1 0%, #ff99aa 100%);
+            position: relative;
+        }
+        
+        .payment-method.active::after {
+            content: '✓';
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: #b13e66;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 900;
+        }
+        
+        .payment-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .payment-name {
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+            color: #000000;
+        }
+        
+        .paybill-info {
+            background: #ffd9e6;
+            border-radius: 10px;
+            padding: 14px;
+            margin-bottom: 16px;
+            border-left: 4px solid #b13e66;
+        }
+        
+        .paybill-info h4 {
+            color: #000000;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 800;
+        }
+        
+        .paybill-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .paybill-item {
+            background: #fff0f5;
+            padding: 8px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #d84c7a;
+        }
+        
+        .paybill-label {
+            font-size: 10px;
+            color: #1a1a1a;
+            margin-bottom: 3px;
+            font-weight: 700;
+        }
+        
+        .paybill-value {
+            font-size: 15px;
+            font-weight: 900;
+            color: #000000;
+        }
+        
+        .payment-form {
+            background: #ffe4ec;
+            border-radius: 14px;
+            padding: 16px;
+            margin-top: 12px;
+            border: 2px solid #d84c7a;
+        }
+        
+        .bot-feature {
+            background: linear-gradient(135deg, #e6f0ff 0%, #cce0ff 100%);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            border-left: 4px solid #1e4b8f;
+            color: #000000;
+            font-weight: 600;
+            border: 1px solid #1e4b8f;
+        }
+        
+        .bot-icon {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            background: #1e4b8f;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            margin-right: 6px;
+            font-size: 11px;
+            font-weight: 800;
+        }
+        
+        .form-group {
+            margin-bottom: 14px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: #000000;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #d84c7a;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            background: #fff0f5;
+            color: #000000;
+            font-weight: 600;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #b13e66;
+            box-shadow: 0 0 0 3px rgba(177, 62, 102, 0.2);
+        }
+        
+        .form-group input::placeholder {
+            color: #666666;
+            font-weight: 500;
+        }
+        
+        .pay-button {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 48px;
+        }
+        
+        .payment-details {
+            display: none;
+        }
+        
+        .payment-details.active {
+            display: block;
+        }
+        
+        .success-message,
+        .processing-message,
+        .error-banner {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 12px;
+            display: none;
+            font-weight: 700;
+        }
+        
+        .success-message {
+            background: #c6f6d5;
+            color: #0a2f1f;
+            border-left: 4px solid #38a169;
+            font-weight: 800;
+        }
+        
+        .processing-message {
+            background: #bee3f8;
+            color: #1a3a4f;
+            border-left: 4px solid #3182ce;
+            font-weight: 800;
+        }
+        
+        .error-banner {
+            background: #fed7d7;
+            color: #4a1a1a;
+            border-left: 4px solid #e53e3e;
+            font-weight: 800;
+        }
+        
+        .success-message.show,
+        .processing-message.show,
+        .error-banner.show {
+            display: block;
+        }
+        
+        .app-launch-container {
+            text-align: center;
+            padding: 16px;
+            background: #ffd9e6;
+            border-radius: 12px;
+            margin-top: 16px;
+            border: 2px solid #d84c7a;
+            display: none;
+        }
+        
+        .app-launch-title {
+            font-size: 15px;
+            font-weight: 800;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+        
+        .app-launch-instructions {
+            font-size: 12px;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+        
+        .app-launch-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+        
+        .payment-completion-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+        
+        .completion-button {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .completion-button.success {
+            background: #48bb78;
+            color: white;
+        }
+        
+        .completion-button.failed {
+            background: #e53e3e;
+            color: white;
+        }
+        
+        .payment-status-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 16px;
+        }
+        
+        .payment-status-modal.active {
+            display: flex;
+        }
+        
+        .status-modal-content {
+            background: #fff0f5;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 360px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 2px solid #d84c7a;
+        }
+        
+        .status-modal-header {
+            padding: 24px 20px;
+            width: 100%;
+        }
+        
+        .status-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+            font-weight: 900;
+        }
+        
+        .status-modal-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: #000000;
+            margin-bottom: 4px;
+        }
+        
+        .status-modal-subtitle {
+            font-size: 13px;
+            color: #1a1a1a;
+            margin-bottom: 16px;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+        
+        .payment-details-modal {
+            background: #ffe4ec;
+            padding: 16px;
+            border-radius: 12px;
+            margin: 0 20px 20px;
+            width: calc(100% - 40px);
+            border: 1px solid #d84c7a;
+        }
+        
+        .payment-detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #d84c7a;
+            font-size: 12px;
+        }
+        
+        .payment-detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .payment-detail-label {
+            color: #1a1a1a;
+            font-weight: 700;
+        }
+        
+        .payment-detail-value {
+            color: #000000;
+            font-weight: 800;
+        }
+        
+        .status-modal-actions {
+            display: flex;
+            gap: 10px;
+            padding: 0 20px 20px;
+            width: 100%;
+        }
+        
+        .status-modal-button {
+            flex: 1;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .status-modal-button.primary {
+            background: linear-gradient(135deg, #1e4b8f 0%, #2a6bb0 100%);
+            color: white;
+        }
+        
+        .status-modal-button.secondary {
+            background: #d84c7a;
+            color: #ffffff;
+        }
+        
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #1e4b8f;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .dashboard-footer {
+            text-align: center;
+            padding: 16px;
+            font-size: 11px;
+            color: #000000;
+            border-top: 2px solid #d84c7a;
+            background: #ffd9e6;
+            font-weight: 700;
+        }
+        
+        .error-message {
+            color: #b13e66;
+            font-size: 11px;
+            margin-top: 4px;
+            display: none;
+            font-weight: 700;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .form-group.error input {
+            border-color: #b13e66;
+        }
+        
+        @media (max-width: 400px) {
+            .modal-content {
+                padding: 12px;
+            }
+            
+            .plans-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-methods-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .payment-completion-actions {
+                grid-template-columns: 1fr;
+            }
+            
+            .status-modal-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="modal-container">
+        <div class="modal-header">
+            <span class="modal-title">Willfortunate Social Bot</span>
+            <button class="modal-close" id="closeBrowserBtn" aria-label="Exit">
+                <svg viewBox="0 0 24 24" width="22" height="22">
+                    <path d="M10 9V5l7 7-7 7v-4H4V9h6z M18 5v14h-2V5h2z"/>
+                </svg>
+            </button>
+        </div>
+        
+        <div class="modal-content">
+            <div class="user-profile">
+                <div class="avatar">S</div>
+                <div class="user-details">
+                    <div class="username">@socialmarketer</div>
+                    <div class="plan-info">Basic Plan</div>
+                    <div class="currency-info">$9 / KSh 1,080</div>
+                </div>
+            </div>
+            
+            <section class="plans-section">
+                <div class="section-title">Bot Subscription Plans</div>
+                <div class="section-subtitle">Choose the perfect automation plan</div>
+                
+                <div class="plans-grid">
+                    <div class="plan-card">
+                        <div class="plan-name">Basic Bot</div>
+                        <div class="plan-price">$9<span>/month</span></div>
+                        <div class="plan-currency">KSh 1,080 / month</div>
+                        <ul class="plan-features">
+                            <li><span class="check-icon">✓</span> 5 Social Platforms</li>
+                            <li><span class="check-icon">✓</span> 1,500 posts/month</li>
+                            <li><span class="check-icon">✓</span> Basic Analytics</li>
+                            <li><span class="check-icon">✓</span> Email support</li>
+                            <li><span class="check-icon">✓</span> Basic AI Support</li>
+                        </ul>
+                        <button class="plan-button" data-plan="basic" data-price="9" data-ksh="1080">Select Basic</button>
+                    </div>
+                    
+                    <div class="plan-card popular">
+                        <div class="plan-name">Pro Bot</div>
+                        <div class="plan-price">$29<span>/month</span></div>
+                        <div class="plan-currency">KSh 3,480 / month</div>
+                        <ul class="plan-features">
+                            <li><span class="check-icon">✓</span> 5 Social Platforms</li>
+                            <li><span class="check-icon">✓</span> Unlimited posts/month</li>
+                            <li><span class="check-icon">✓</span> Advanced Analytics</li>
+                            <li><span class="check-icon">✓</span> Priority support</li>
+                            <li><span class="check-icon">✓</span> Full AI Automation</li>
+                        </ul>
+                        <button class="plan-button" data-plan="pro" data-price="29" data-ksh="3480">Select Pro</button>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="payment-methods-section">
+                <div class="section-title">Payment Methods</div>
+                <div class="section-subtitle">Secure payment for your bot subscription</div>
+                
+                <div class="payment-methods-grid">
+                    <div class="payment-method active" data-method="mpesa">
+                        <div class="payment-icon">📱</div>
+                        <div class="payment-name">M-Pesa</div>
+                    </div>
+                    <div class="payment-method" data-method="airtel">
+                        <div class="payment-icon">📞</div>
+                        <div class="payment-name">Airtel Money</div>
+                    </div>
+                </div>
+                
+                <div class="paybill-info">
+                    <h4>📋 Paybill Information</h4>
+                    <div class="paybill-details">
+                        <div class="paybill-item">
+                            <div class="paybill-label">Paybill Number</div>
+                            <div class="paybill-value">247247</div>
+                        </div>
+                        <div class="paybill-item">
+                            <div class="paybill-label">Account Number</div>
+                            <div class="paybill-value">5654546</div>
+                        </div>
+                    </div>
+                    <div style="font-size:11px;color:#1a1a1a;margin-top:8px;font-weight:600;">
+                        Use these details when prompted in your mobile money app
+                    </div>
+                </div>
+                
+                <div class="payment-form">
+                    <div class="bot-feature" id="plan-summary">
+                        <span class="bot-icon">🤖</span> 
+                        <strong>Selected Plan:</strong> <span id="selected-plan-name">Basic Bot Plan</span> • 
+                        <strong>Amount:</strong> <span id="selected-plan-amount">$9.00 (KSh 1,080)</span>
+                    </div>
+                    
+                    <div class="success-message" id="success-message">
+                        ✅ Payment successful! Your subscription has been activated.
+                    </div>
+                    
+                    <div class="processing-message" id="processing-message">
+                        ⏳ Processing your payment...
+                    </div>
+                    
+                    <div class="error-banner" id="error-message">
+                        ❌ Payment failed. Please try again.
+                    </div>
+                    
+                    <div class="app-launch-container" id="app-launch-container">
+                        <div class="app-launch-title" id="app-launch-title">Open Mobile Money App</div>
+                        <div class="app-launch-instructions" id="app-launch-instructions">
+                            Complete your payment in the mobile money app using the Paybill details above.
+                        </div>
+                        <a href="#" class="app-launch-button" id="app-launch-button" target="_blank">
+                            Open App
+                        </a>
+                        <div class="payment-completion-actions">
+                            <button class="completion-button success" id="payment-success-btn">
+                                ✅ I Completed Payment
+                            </button>
+                            <button class="completion-button failed" id="payment-failed-btn">
+                                ❌ Payment Failed
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="payment-details active" id="mpesa-details">
+                        <div class="form-group">
+                            <label for="mpesa-phone">Phone Number (Optional)</label>
+                            <input type="tel" id="mpesa-phone" placeholder="Enter phone number">
+                            <div class="error-message" id="mpesa-phone-error">Please enter a valid phone number</div>
+                        </div>
+                        <button class="pay-button" id="mpesa-pay">
+                            <span class="spinner" style="display:none;"></span>
+                            <span class="button-text">Open M-Pesa App</span>
+                        </button>
+                    </div>
+                    
+                    <div class="payment-details" id="airtel-details">
+                        <div class="form-group">
+                            <label for="airtel-phone">Phone Number (Optional)</label>
+                            <input type="tel" id="airtel-phone" placeholder="Enter phone number">
+                            <div class="error-message" id="airtel-phone-error">Please enter a valid phone number</div>
+                        </div>
+                        <button class="pay-button" id="airtel-pay">
+                            <span class="spinner" style="display:none;"></span>
+                            <span class="button-text">Open Airtel Money App</span>
+                        </button>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="dashboard-footer">
+                © 2024 Willfortunate Social Bot • Secure Payments
+            </div>
+        </div>
+    </div>
+    
+    <div class="payment-status-modal" id="payment-status-modal">
+        <div class="status-modal-content">
+            <div class="status-modal-header">
+                <div class="status-icon" id="status-icon">✅</div>
+                <div class="status-modal-title" id="status-title">Payment Successful!</div>
+                <div class="status-modal-subtitle" id="status-subtitle">Your payment has been processed successfully</div>
+            </div>
+            <div class="payment-details-modal" id="payment-details-container"></div>
+            <div class="status-modal-actions">
+                <button class="status-modal-button secondary" id="close-status-modal">Close</button>
+                <button class="status-modal-button primary" id="download-receipt">Download Receipt</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const paymentConfig = {
+            exchangeRate: 120,
+            paymentMethods: {
+                mpesa: {
+                    name: 'M-Pesa',
+                    appUrl: {
+                        android: 'intent://launch#Intent;package=com.safaricom.mpesa.lifestyle;scheme=mpesa;end',
+                        ios: 'mpesa://'
+                    },
+                    ussdCode: '*247*247*5654546*{amount}#'
+                },
+                airtel: {
+                    name: 'Airtel Money',
+                    appUrl: {
+                        android: 'intent://launch#Intent;package=com.airtel.money;scheme=airtelmoney;end',
+                        ios: 'airtelmoney://'
+                    },
+                    ussdCode: '*211*5654546*{amount}#'
+                }
+            }
+        };
+        
+        let currentState = {
+            plan: 'basic',
+            planName: 'Basic Bot Plan',
+            amount: 9,
+            currency: 'USD',
+            localAmount: 1080,
+            localCurrency: 'KSh'
+        };
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            initializePaymentSystem();
+            updatePlanSummary();
+            setupEventListeners();
+            setupInputFormatting();
+        });
+        
+        function initializePaymentSystem() {
+            setActivePaymentMethod('mpesa');
+            updatePaymentButtons();
+        }
+        
+        function setActivePaymentMethod(method) {
+            document.querySelectorAll('.payment-method').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`.payment-method[data-method="${method}"]`).classList.add('active');
+            document.querySelectorAll('.payment-details').forEach(detail => {
+                detail.classList.remove('active');
+            });
+            document.getElementById(`${method}-details`).classList.add('active');
+            clearAllErrors();
+            hideAllMessages();
+            document.getElementById('app-launch-container').style.display = 'none';
+        }
+        
+        function setupEventListeners() {
+            document.getElementById('closeBrowserBtn').addEventListener('click', function() {
+                window.close();
+            });
+            
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    const methodType = this.dataset.method;
+                    setActivePaymentMethod(methodType);
+                });
+            });
+            
+            document.querySelectorAll('.plan-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    selectPlan(this.dataset.plan, parseFloat(this.dataset.price), parseInt(this.dataset.ksh));
+                });
+            });
+            
+            setupPaymentButton('mpesa-pay', 'mpesa');
+            setupPaymentButton('airtel-pay', 'airtel');
+            
+            document.getElementById('close-status-modal').addEventListener('click', closeStatusModal);
+            document.getElementById('download-receipt').addEventListener('click', downloadReceipt);
+            
+            document.getElementById('app-launch-button').addEventListener('click', function(e) {
+                e.preventDefault();
+                const method = document.querySelector('.payment-method.active').dataset.method;
+                openMobileMoneyApp(method);
+            });
+            
+            document.getElementById('payment-success-btn').addEventListener('click', function() {
+                const method = document.querySelector('.payment-method.active').dataset.method;
+                const paymentData = collectPaymentData(method);
+                showPaymentSuccess(method, paymentData);
+            });
+            
+            document.getElementById('payment-failed-btn').addEventListener('click', function() {
+                showError('Payment failed. Please try again or contact support.');
+                document.getElementById('app-launch-container').style.display = 'none';
+            });
+        }
+        
+        function setupPaymentButton(buttonId, method) {
+            const button = document.getElementById(buttonId);
+            button.addEventListener('click', function() {
+                clearAllErrors();
+                const phoneInput = document.getElementById(`${method}-phone`);
+                const phoneNumber = phoneInput.value.trim();
+                if (phoneNumber && !isValidPhoneNumber(phoneNumber)) {
+                    showFieldError(`${method}-phone`, 'Please enter a valid phone number (9-12 digits)');
+                    return;
+                }
+                showProcessing();
+                setTimeout(() => {
+                    hideProcessing();
+                    showAppLaunch(method, phoneNumber);
+                }, 1000);
+            });
+        }
+        
+        function selectPlan(planType, price, localAmount) {
+            currentState = {
+                plan: planType,
+                planName: planType === 'basic' ? 'Basic Bot Plan' : 'Pro Bot Plan',
+                amount: price,
+                currency: 'USD',
+                localAmount: localAmount,
+                localCurrency: 'KSh'
+            };
+            document.querySelector('.plan-info').textContent = `${planType.charAt(0).toUpperCase() + planType.slice(1)} Plan`;
+            document.querySelector('.currency-info').textContent = `$${price}/KSh ${localAmount.toLocaleString()}`;
+            updatePlanSummary();
+            showTemporaryNotification(`✅ ${currentState.planName} selected!`);
+        }
+        
+        function updatePlanSummary() {
+            const summary = document.getElementById('plan-summary');
+            summary.innerHTML = `<span class="bot-icon">🤖</span><strong>Selected Plan:</strong> <span id="selected-plan-name">${currentState.planName}</span> • <strong>Amount:</strong> <span id="selected-plan-amount">$${currentState.amount.toFixed(2)} (KSh ${currentState.localAmount.toLocaleString()})</span>`;
+        }
+        
+        function isValidPhoneNumber(phone) {
+            const cleaned = phone.replace(/\D/g, '');
+            return cleaned.length >= 9 && cleaned.length <= 12;
+        }
+        
+        function collectPaymentData(method) {
+            const baseData = {
+                plan: currentState.planName,
+                planType: currentState.plan,
+                amount: currentState.amount,
+                currency: currentState.currency,
+                localAmount: currentState.localAmount,
+                localCurrency: currentState.localCurrency,
+                timestamp: new Date().toISOString(),
+                paybillNumber: '247247',
+                accountNumber: '5654546'
+            };
+            const phoneInput = document.getElementById(`${method}-phone`);
+            const phoneNumber = phoneInput.value.trim();
+            return {
+                ...baseData,
+                method: method === 'mpesa' ? 'M-Pesa' : 'Airtel Money',
+                details: {
+                    phone: phoneNumber || 'Not provided'
+                }
+            };
+        }
+        
+        function showAppLaunch(method, phoneNumber) {
+            const paymentData = collectPaymentData(method);
+            const appName = method === 'mpesa' ? 'M-Pesa' : 'Airtel Money';
+            
+            document.getElementById('app-launch-title').textContent = `Open ${appName} App`;
+            document.getElementById('app-launch-instructions').innerHTML = `<strong>Instructions:</strong><br>1. Click "Open App" button below<br>2. Complete payment in ${appName} app<br>3. Use these details:<br>• Paybill: <strong>247247</strong><br>• Account: <strong>5654546</strong><br>• Amount: <strong>KSh ${currentState.localAmount.toLocaleString()}</strong>`;
+            
+            const appLaunchButton = document.getElementById('app-launch-button');
+            const appUrls = paymentConfig.paymentMethods[method].appUrl;
+            
+            if (isAndroid()) {
+                appLaunchButton.href = appUrls.android;
+            } else if (isIOS()) {
+                appLaunchButton.href = appUrls.ios;
+            } else {
+                const ussdCode = paymentConfig.paymentMethods[method].ussdCode.replace('{amount}', currentState.localAmount);
+                appLaunchButton.href = `tel:${encodeURIComponent(ussdCode)}`;
+            }
+            
+            document.getElementById('app-launch-container').style.display = 'block';
+            document.getElementById('app-launch-container').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function openMobileMoneyApp(method) {
+            const appUrls = paymentConfig.paymentMethods[method].appUrl;
+            let appUrl;
+            
+            if (isAndroid()) {
+                appUrl = appUrls.android;
+            } else if (isIOS()) {
+                appUrl = appUrls.ios;
+            } else {
+                const ussdCode = paymentConfig.paymentMethods[method].ussdCode.replace('{amount}', currentState.localAmount);
+                appUrl = `tel:${encodeURIComponent(ussdCode)}`;
+            }
+            
+            window.open(appUrl, '_blank');
+            showTemporaryNotification(`Opening ${method === 'mpesa' ? 'M-Pesa' : 'Airtel Money'} app...`);
+        }
+        
+        function showPaymentSuccess(method, paymentData) {
+            hideAllMessages();
+            document.getElementById('success-message').classList.add('show');
+            document.getElementById('app-launch-container').style.display = 'none';
+            updateUserPlanDisplay(paymentData.planType);
+            
+            const transactionId = generateTransactionId(method);
+            const finalPaymentData = {
+                ...paymentData,
+                transactionId: transactionId,
+                status: 'completed',
+                date: new Date().toISOString(),
+                receiptNumber: `WFB-${Date.now()}`
+            };
+            
+            showPaymentStatusModal('success', finalPaymentData);
+            clearPaymentForm();
+        }
+        
+        function generateTransactionId(method) {
+            const prefix = method.toUpperCase();
+            const timestamp = Date.now().toString().slice(-8);
+            const random = Math.floor(Math.random() * 10000).toString().padStart(4, '0');
+            return `${prefix}-${timestamp}-${random}`;
+        }
+        
+        function showProcessing() {
+            const activeButton = document.querySelector('.payment-details.active .pay-button');
+            if (activeButton) {
+                const spinner = activeButton.querySelector('.spinner');
+                const buttonText = activeButton.querySelector('.button-text');
+                spinner.style.display = 'inline-block';
+                buttonText.textContent = 'Opening...';
+                activeButton.disabled = true;
+            }
+            hideAllMessages();
+            document.getElementById('processing-message').classList.add('show');
+        }
+        
+        function hideProcessing() {
+            const activeButton = document.querySelector('.payment-details.active .pay-button');
+            if (activeButton) {
+                const spinner = activeButton.querySelector('.spinner');
+                const buttonText = activeButton.querySelector('.button-text');
+                spinner.style.display = 'none';
+                buttonText.textContent = activeButton.id === 'mpesa-pay' ? 'Open M-Pesa App' : 'Open Airtel Money App';
+                activeButton.disabled = false;
+            }
+            document.getElementById('processing-message').classList.remove('show');
+        }
+        
+        function showError(message) {
+            hideAllMessages();
+            const errorElement = document.getElementById('error-message');
+            errorElement.textContent = `❌ ${message}`;
+            errorElement.classList.add('show');
+        }
+        
+        function hideAllMessages() {
+            document.getElementById('success-message').classList.remove('show');
+            document.getElementById('processing-message').classList.remove('show');
+            document.getElementById('error-message').classList.remove('show');
+        }
+        
+        function clearAllErrors() {
+            document.querySelectorAll('.error-message').forEach(error => {
+                error.classList.remove('show');
+            });
+            document.querySelectorAll('.form-group.error').forEach(group => {
+                group.classList.remove('error');
+            });
+        }
+        
+        function showFieldError(fieldId, message) {
+            const errorElement = document.getElementById(`${fieldId}-error`);
+            const inputElement = document.getElementById(fieldId);
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+            inputElement.parentElement.classList.add('error');
+            inputElement.focus();
+        }
+        
+        function updateUserPlanDisplay(planType) {
+            const planDisplay = document.querySelector('.plan-info');
+            planDisplay.textContent = `${planType.charAt(0).toUpperCase() + planType.slice(1)} Plan`;
+        }
+        
+        function updatePaymentButtons() {
+            const buttons = {
+                mpesa: 'Open M-Pesa App',
+                airtel: 'Open Airtel Money App'
+            };
+            
+            Object.entries(buttons).forEach(([method, text]) => {
+                const button = document.getElementById(`${method}-pay`);
+                const buttonText = button.querySelector('.button-text');
+                buttonText.textContent = text;
+            });
+        }
+        
+        function clearPaymentForm() {
+            document.querySelectorAll('.payment-details.active input').forEach(input => {
+                input.value = '';
+            });
+        }
+        
+        function showPaymentStatusModal(status, paymentData) {
+            const modal = document.getElementById('payment-status-modal');
+            const icon = document.getElementById('status-icon');
+            const title = document.getElementById('status-title');
+            const subtitle = document.getElementById('status-subtitle');
+            const detailsContainer = document.getElementById('payment-details-container');
+            
+            icon.textContent = '✅';
+            icon.style.color = '#48bb78';
+            title.textContent = 'Payment Successful!';
+            subtitle.textContent = 'Your subscription has been activated.';
+            
+            detailsContainer.innerHTML = `
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Transaction ID:</span>
+                    <span class="payment-detail-value">${paymentData.transactionId}</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Plan:</span>
+                    <span class="payment-detail-value">${paymentData.plan}</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Amount:</span>
+                    <span class="payment-detail-value">$${paymentData.amount.toFixed(2)} (KSh ${paymentData.localAmount.toLocaleString()})</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Method:</span>
+                    <span class="payment-detail-value">${paymentData.method}</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Paybill:</span>
+                    <span class="payment-detail-value">${paymentData.paybillNumber}</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Account:</span>
+                    <span class="payment-detail-value">${paymentData.accountNumber}</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Date:</span>
+                    <span class="payment-detail-value">${formatDate(paymentData.date)}</span>
+                </div>
+                <div class="payment-detail-row">
+                    <span class="payment-detail-label">Status:</span>
+                    <span class="payment-detail-value" style="color:#48bb78;">Completed</span>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        function closeStatusModal() {
+            document.getElementById('payment-status-modal').classList.remove('active');
+        }
+        
+        function downloadReceipt() {
+            const detailsContainer = document.getElementById('payment-details-container');
+            const details = {};
+            
+            detailsContainer.querySelectorAll('.payment-detail-row').forEach(row => {
+                const label = row.querySelector('.payment-detail-label').textContent;
+                const value = row.querySelector('.payment-detail-value').textContent;
+                details[label.replace(':', '')] = value;
+            });
+            
+            const receiptContent = `WILLFORTUNATE SOCIAL BOT - PAYMENT RECEIPT
+===========================================
+Transaction ID: ${details['Transaction ID'] || 'N/A'}
+Date: ${details.Date || new Date().toLocaleString()}
+Status: ${details.Status || 'Completed'}
+Plan: ${details.Plan || 'N/A'}
+Amount: ${details.Amount || 'N/A'}
+Payment Method: ${details.Method || 'N/A'}
+Paybill Number: ${details.Paybill || '247247'}
+Account Number: ${details.Account || '5654546'}
+Thank you for your payment!
+Your subscription has been activated.`;
+            
+            const blob = new Blob([receiptContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `willfortunate-receipt-${details['Transaction ID'] || Date.now()}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+        
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            return date.toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+        
+        function showTemporaryNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'bot-feature';
+            notification.style.cssText = 'position:fixed;top:20px;right:20px;z-index:10000;background:#48bb78;color:white;border-left-color:#2f855a;max-width:280px;padding:12px;border-radius:8px;font-weight:800;';
+            notification.innerHTML = `<span class="bot-icon">🤖</span> ${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+        
+        function setupInputFormatting() {
+            const phoneInputs = ['mpesa-phone', 'airtel-phone'];
+            phoneInputs.forEach(id => {
+                const input = document.getElementById(id);
+                input.addEventListener('input', function(e) {
+                    let value = e.target.value.replace(/\D/g, '');
+                    e.target.value = value;
+                });
+            });
+        }
+        
+        function detectMobileOS() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            return {
+                isAndroid: /android/i.test(userAgent),
+                isIOS: /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream
+            };
+        }
+        
+        function isAndroid() {
+            return detectMobileOS().isAndroid;
+        }
+        
+        function isIOS() {
+            return detectMobileOS().isIOS;
+        }
+    </script>
+</body>
+</html>

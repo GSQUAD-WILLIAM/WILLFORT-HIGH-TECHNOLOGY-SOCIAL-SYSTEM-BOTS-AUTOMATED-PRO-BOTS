@@ -1,0 +1,5316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>G,SQUAD PRO BOT - Content Calendar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #5b6bf0;
+            --secondary: #4a56c4;
+            --accent: #4cc9f0;
+            --success: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #2d3748;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --border-radius: 16px;
+            --shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.2s ease;
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-accent: linear-gradient(135deg, var(--accent), var(--primary));
+            --gradient-success: linear-gradient(135deg, var(--success), #2dd4bf);
+            --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            --gradient-header: linear-gradient(135deg, rgba(26, 32, 44, 0.95), rgba(26, 32, 44, 0.85));
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+
+        body {
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            transition: background 1.5s ease-in-out;
+            background: linear-gradient(135deg, #4a6bff, #8a2be2);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: crisp-edges;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            position: relative;
+            z-index: 1;
+            will-change: transform;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            backdrop-filter: blur(12px) saturate(180%);
+            background: var(--glass-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeInDown 0.8s ease;
+            touch-action: pan-y;
+            will-change: transform;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            will-change: transform;
+        }
+
+        .logo h1 {
+            font-size: 18px;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 6px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .logo h1::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .logo h1:hover::before {
+            left: 100%;
+        }
+
+        .logo h1:hover {
+            background: rgba(91, 107, 240, 0.1);
+            animation: textPop 0.5s ease;
+        }
+
+        @keyframes textPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .logo-icon {
+            font-size: 20px;
+            color: var(--primary);
+            transition: var(--transition);
+            filter: drop-shadow(0 2px 4px rgba(91, 107, 240, 0.3));
+            will-change: transform;
+        }
+
+        .logo:hover .logo-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff6b6b, #ff4757);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            box-shadow: var(--shadow);
+            animation: float 3s ease-in-out infinite;
+            transition: var(--transition);
+            border: 2px solid rgba(255, 255, 255, 0.8);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .avatar:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 107, 107, 0.4);
+            background: linear-gradient(135deg, #ff4757, #ff3838);
+        }
+
+        .avatar::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .avatar:hover::before {
+            left: 100%;
+        }
+
+        .avatar i {
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .avatar:hover i {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 20px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: var(--transition);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            touch-action: manipulation;
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(91, 107, 240, 0.1);
+            transform: scale(1.1);
+        }
+
+        .dashboard {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            min-height: calc(100vh - 120px);
+        }
+
+        .sidebar {
+            background: var(--glass-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            display: none;
+            animation: slideInLeft 0.5s ease;
+            will-change: transform;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .sidebar.active {
+            display: block;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: var(--border-radius);
+            color: var(--dark);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .nav-link:hover::before, .nav-link.active::before {
+            left: 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+            animation: bounce 0.5s ease;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-8px); }
+            80% { transform: translateY(-4px); }
+        }
+
+        .nav-icon {
+            font-size: 16px;
+            width: 18px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .nav-link:hover .nav-icon, .nav-link.active .nav-icon {
+            transform: scale(1.2);
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--gradient-header);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            backdrop-filter: blur(10px);
+            flex-wrap: wrap;
+            gap: 12px;
+            animation: fadeIn 0.6s ease;
+            color: #4ade80;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .month-navigation {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-btn {
+            background: rgba(45, 55, 72, 0.8);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            color: #4ade80;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(74, 222, 128, 0.2);
+            transition: left 0.3s;
+        }
+
+        .nav-btn:hover::before {
+            left: 0;
+        }
+
+        .nav-btn:hover {
+            background: #4ade80;
+            color: #1a202c;
+            transform: scale(1.1);
+            animation: pulse 0.5s ease;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1.1); }
+        }
+
+        .current-month {
+            font-size: 16px;
+            font-weight: 700;
+            color: #4ade80;
+            background: rgba(74, 222, 128, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            animation: glow 2s infinite alternate;
+            border: 1px solid rgba(74, 222, 128, 0.3);
+            backdrop-filter: blur(5px);
+            will-change: transform;
+        }
+
+        @keyframes glow {
+            from { box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+            to { box-shadow: 0 4px 15px rgba(74, 222, 128, 0.4); }
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: var(--shadow);
+            font-size: 13px;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(91, 107, 240, 0.3);
+            animation: wiggle 0.5s ease;
+        }
+
+        @keyframes wiggle {
+            0%, 7% { transform: rotateZ(0); }
+            15% { transform: rotateZ(-5deg); }
+            20% { transform: rotateZ(5deg); }
+            25% { transform: rotateZ(-5deg); }
+            30% { transform: rotateZ(3deg); }
+            35% { transform: rotateZ(-2deg); }
+            40%, 100% { transform: rotateZ(0); }
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid #4ade80;
+            color: #4ade80;
+        }
+
+        .btn-outline:hover {
+            background: #4ade80;
+            color: #1a202c;
+            animation: shake 0.5s ease;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(229, 62, 62, 0.3);
+        }
+
+        .calendar {
+            background: var(--glass-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            overflow: hidden;
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            animation: zoomIn 0.7s ease;
+            touch-action: pan-y;
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .calendar-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            background: var(--gradient-primary);
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            padding: 8px 0;
+            position: relative;
+        }
+
+        .calendar-weekdays::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .weekday {
+            padding: 8px 4px;
+            border-right: 1px solid rgba(255, 255, 255, 0.2);
+            animation: fadeInUp 0.5s ease;
+            position: relative;
+        }
+
+        .weekday:last-child {
+            border-right: none;
+        }
+
+        .calendar-days {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+        }
+
+        .calendar-day {
+            min-height: 70px;
+            padding: 6px;
+            border-right: 1px solid rgba(226, 232, 240, 0.5);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            animation: fadeInUp 0.5s ease;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .calendar-day:hover {
+            background: rgba(245, 247, 255, 0.9);
+            transform: scale(1.02);
+            z-index: 1;
+            box-shadow: var(--shadow);
+            animation: popIn 0.3s ease;
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1.02); }
+        }
+
+        .calendar-day.other-month {
+            color: #a0aec0;
+            background: rgba(250, 250, 250, 0.5);
+        }
+
+        .calendar-day.today {
+            background: rgba(76, 201, 240, 0.15);
+            border: 2px solid var(--success);
+            position: relative;
+            overflow: hidden;
+            animation: todayPulse 2s infinite;
+        }
+
+        @keyframes todayPulse {
+            0% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(76, 201, 240, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(76, 201, 240, 0); }
+        }
+
+        .calendar-day.today::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--success);
+        }
+
+        .day-number {
+            font-weight: 700;
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .day-events {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .scheduled-post {
+            background: var(--success);
+            color: white;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 9px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            transition: var(--transition);
+            font-weight: 600;
+            animation: slideInRight 0.5s ease;
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .scheduled-post::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.3s;
+        }
+
+        .scheduled-post:hover::before {
+            left: 100%;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .scheduled-post:hover {
+            transform: translateX(3px);
+            animation: wiggleSmall 0.5s ease;
+        }
+
+        @keyframes wiggleSmall {
+            0%, 7% { transform: translateX(3px) rotateZ(0); }
+            15% { transform: translateX(3px) rotateZ(-3deg); }
+            20% { transform: translateX(3px) rotateZ(3deg); }
+            25% { transform: translateX(3px) rotateZ(-3deg); }
+            30% { transform: translateX(3px) rotateZ(2deg); }
+            35% { transform: translateX(3px) rotateZ(-1deg); }
+            40%, 100% { transform: translateX(3px) rotateZ(0); }
+        }
+
+        .scheduled-post.media {
+            background: var(--accent);
+        }
+
+        .event-count {
+            background: var(--primary);
+            color: white;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 9px;
+            font-weight: bold;
+            animation: countPop 0.5s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes countPop {
+            0% { transform: scale(0); }
+            80% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .scheduled-posts {
+            background: var(--glass-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 15px;
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            animation: slideInUp 0.6s ease;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--dark);
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gradient-primary);
+            border-radius: 3px;
+        }
+
+        .section-icon {
+            font-size: 18px;
+            color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .section-title:hover .section-icon {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        .posts-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .post-item {
+            padding: 12px;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(5px);
+            color: #000000;
+            font-weight: 600;
+            will-change: transform;
+        }
+
+        .post-item {
+            background: linear-gradient(135deg, #a8c6ff, #5b6bf0);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .post-item::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .post-item:hover::before {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        .post-item:nth-child(2n) {
+            background: linear-gradient(135deg, #9ab3ff, #4a56c4);
+        }
+
+        .post-item:nth-child(3n) {
+            background: linear-gradient(135deg, #8cc0ff, #4cc9f0);
+        }
+
+        .post-item:nth-child(4n) {
+            background: linear-gradient(135deg, #7da9ff, #3a8de0);
+        }
+
+        .post-item:nth-child(5n) {
+            background: linear-gradient(135deg, #6e98ff, #5b6bf0);
+        }
+
+        .post-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+            animation: cardPop 0.5s ease;
+        }
+
+        @keyframes cardPop {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+            100% { transform: translateY(-5px) scale(1); }
+        }
+
+        .post-content {
+            flex: 1;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .post-text {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .post-media {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .post-media-item {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .post-media-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .post-media-item:hover::before {
+            opacity: 1;
+        }
+
+        .post-media-item:hover {
+            transform: scale(1.1);
+            animation: mediaPop 0.3s ease;
+        }
+
+        @keyframes mediaPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1.1); }
+        }
+
+        .post-media-item img, .post-media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .post-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 10px;
+            color: #000000;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        .post-platforms {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-top: 6px;
+        }
+
+        .platform-badge {
+            padding: 2px 6px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            color: #000000;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .platform-badge::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s;
+        }
+
+        .platform-badge:hover::before {
+            left: 100%;
+        }
+
+        .platform-badge:hover {
+            transform: scale(1.1);
+            animation: badgePop 0.3s ease;
+        }
+
+        @keyframes badgePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1.1); }
+        }
+
+        .platform-facebook { background: rgba(24, 119, 242, 0.9); color: white; }
+        .platform-twitter { background: rgba(29, 161, 242, 0.9); color: white; }
+        .platform-instagram { background: linear-gradient(45deg, rgba(240, 148, 51, 0.9), rgba(230, 104, 60, 0.9), rgba(220, 39, 67, 0.9), rgba(204, 35, 102, 0.9), rgba(188, 24, 136, 0.9)); color: white; }
+        .platform-linkedin { background: rgba(10, 102, 194, 0.9); color: white; }
+        .platform-whatsapp { background: rgba(37, 211, 102, 0.9); color: white; }
+        .platform-tiktok { background: rgba(0, 0, 0, 0.9); color: white; }
+        .platform-snapchat { background: rgba(255, 252, 0, 0.9); color: #000000; }
+
+        .post-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: #000000;
+            transition: var(--transition);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .action-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s;
+        }
+
+        .action-btn:hover::before {
+            left: 100%;
+        }
+
+        .action-btn:hover {
+            transform: scale(1.2);
+            animation: buttonPop 0.3s ease;
+        }
+
+        @keyframes buttonPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1.2); }
+        }
+
+        .action-btn.edit:hover {
+            background: rgba(76, 201, 240, 0.7);
+            color: white;
+        }
+
+        .action-btn.delete:hover {
+            background: rgba(255, 107, 139, 0.7);
+            color: white;
+        }
+
+        .post-status {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .post-status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.3);
+            transition: left 0.3s;
+        }
+
+        .post-status:hover::before {
+            left: 100%;
+        }
+
+        .post-status:hover {
+            transform: scale(1.1);
+            animation: statusPop 0.3s ease;
+        }
+
+        @keyframes statusPop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1.1); }
+        }
+
+        .status-scheduled {
+            background: rgba(255, 243, 205, 0.9);
+            color: #856404;
+        }
+
+        .status-published {
+            background: rgba(209, 236, 241, 0.9);
+            color: #0c5460;
+        }
+
+        .status-draft {
+            background: rgba(248, 215, 218, 0.9);
+            color: #721c24;
+        }
+
+        .status-deleted {
+            background: rgba(248, 215, 218, 0.9);
+            color: #721c24;
+        }
+
+        .animal-icon {
+            font-size: 18px;
+            margin-bottom: 6px;
+            color: #000000;
+            display: inline-block;
+            animation: animalFloat 3s ease-in-out infinite;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes animalFloat {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            overflow-y: auto;
+            backdrop-filter: blur(5px);
+            touch-action: pan-y;
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            animation: modalAppear 0.3s forwards;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes modalAppear {
+            to { transform: scale(1); }
+        }
+
+        .modal-header {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: var(--gradient-primary);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modal-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+        }
+
+        .modal-title {
+            font-size: 16px;
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: white;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            touch-action: manipulation;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            animation: spin 0.5s ease;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(90deg); }
+        }
+
+        .modal-body {
+            padding: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 13px;
+            position: relative;
+        }
+
+        .form-label::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 20px;
+            height: 2px;
+            background: var(--gradient-primary);
+            border-radius: 2px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 14px;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.8);
+            touch-action: manipulation;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(91, 107, 240, 0.2);
+            outline: none;
+            animation: inputFocus 0.3s ease;
+            background: white;
+        }
+
+        @keyframes inputFocus {
+            0% { box-shadow: 0 0 0 0 rgba(91, 107, 240, 0.2); }
+            100% { box-shadow: 0 0 0 3px rgba(91, 107, 240, 0.2); }
+        }
+
+        textarea.form-control {
+            min-height: 80px;
+            resize: vertical;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+            gap: 8px;
+            margin-top: 6px;
+        }
+
+        .platform-checkbox {
+            display: none;
+        }
+
+        .platform-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 8px 4px;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            font-size: 11px;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .platform-label::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(91, 107, 240, 0.1);
+            transition: left 0.3s;
+        }
+
+        .platform-label:hover::before {
+            left: 0;
+        }
+
+        .platform-label:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            animation: platformHover 0.3s ease;
+        }
+
+        @keyframes platformHover {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(-3px); }
+        }
+
+        .platform-checkbox:checked + .platform-label {
+            border-color: var(--primary);
+            background: rgba(91, 107, 240, 0.1);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            animation: platformSelect 0.3s ease;
+        }
+
+        @keyframes platformSelect {
+            0% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.1) translateY(-5px); }
+            100% { transform: scale(1) translateY(-3px); }
+        }
+
+        .platform-icon {
+            font-size: 18px;
+            margin-bottom: 4px;
+            transition: var(--transition);
+        }
+
+        .platform-checkbox:checked + .platform-label .platform-icon {
+            transform: scale(1.2);
+        }
+
+        .platform-name {
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--primary);
+            border-radius: var(--border-radius);
+            padding: 20px 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: rgba(91, 107, 240, 0.05);
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+        }
+
+        .upload-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(91, 107, 240, 0.1);
+            transition: left 0.5s;
+        }
+
+        .upload-area:hover::before {
+            left: 100%;
+        }
+
+        .upload-area:hover {
+            background: rgba(91, 107, 240, 0.1);
+            animation: uploadHover 0.5s ease;
+        }
+
+        @keyframes uploadHover {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .upload-icon {
+            font-size: 28px;
+            color: var(--primary);
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .upload-area:hover .upload-icon {
+            transform: translateY(-5px);
+        }
+
+        .upload-text {
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--dark);
+            font-size: 13px;
+        }
+
+        .upload-hint {
+            color: var(--gray);
+            font-size: 11px;
+        }
+
+        .media-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .media-item {
+            position: relative;
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            animation: mediaAppear 0.5s ease;
+            transition: var(--transition);
+            will-change: transform;
+        }
+
+        @keyframes mediaAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .media-item:hover {
+            transform: scale(1.05);
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-media {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255, 255, 255, 0.8);
+            border: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 10px;
+            color: var(--dark);
+            transition: var(--transition);
+            touch-action: manipulation;
+        }
+
+        .remove-media:hover {
+            transform: scale(1.2);
+            animation: removePop 0.3s ease;
+            background: rgba(255, 107, 139, 0.8);
+            color: white;
+        }
+
+        @keyframes removePop {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4); }
+            100% { transform: scale(1.2); }
+        }
+
+        .modal-footer {
+            padding: 15px;
+            border-top: 1px solid var(--light-gray);
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .audience-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        .audience-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.7);
+            touch-action: manipulation;
+        }
+
+        .audience-option:hover {
+            background: rgba(91, 107, 240, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .audience-option input {
+            margin: 0;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            padding: 12px 20px;
+            background: var(--success);
+            color: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            will-change: transform, opacity;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            animation: toastBounce 0.5s ease;
+        }
+
+        @keyframes toastBounce {
+            0% { transform: translateY(100px); }
+            60% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+        }
+
+        .toast.error {
+            background: var(--accent);
+        }
+
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1100;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            backdrop-filter: blur(5px);
+            touch-action: pan-y;
+        }
+
+        .confirmation-content {
+            background: white;
+            width: 100%;
+            max-width: 350px;
+            border-radius: var(--border-radius);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            padding: 20px;
+            text-align: center;
+            transform: scale(0.9);
+            animation: modalAppear 0.3s forwards;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .confirmation-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--dark);
+        }
+
+        .confirmation-text {
+            margin-bottom: 20px;
+            color: var(--gray);
+            line-height: 1.5;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        @keyframes newPost {
+            0% {
+                opacity: 0;
+                transform: scale(0.5) rotate(-5deg);
+            }
+            70% {
+                transform: scale(1.1) rotate(2deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .new-post {
+            animation: newPost 0.7s ease;
+        }
+
+        .post-libraries {
+            background: var(--glass-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 15px;
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            animation: slideInUp 0.6s ease;
+        }
+
+        .library-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .library-tab {
+            padding: 8px 16px;
+            border: none;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.7);
+            color: var(--dark);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 13px;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .library-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient-primary);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .library-tab:hover::before, .library-tab.active::before {
+            left: 0;
+        }
+
+        .library-tab:hover, .library-tab.active {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .library-content {
+            display: none;
+        }
+
+        .library-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .library-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .stat-card {
+            background: var(--gradient-primary);
+            color: white;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            will-change: transform;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .stat-card:hover::before {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(91, 107, 240, 0.3);
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.9;
+        }
+
+        .library-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            transition: var(--transition);
+            touch-action: manipulation;
+        }
+
+        .filter-select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(91, 107, 240, 0.2);
+            outline: none;
+        }
+
+        .library-search {
+            flex: 1;
+            min-width: 150px;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.8);
+            font-size: 13px;
+            transition: var(--transition);
+            touch-action: manipulation;
+        }
+
+        .library-search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(91, 107, 240, 0.2);
+            outline: none;
+        }
+
+        .library-posts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .library-post {
+            padding: 12px;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(5px);
+            color: #000000;
+            font-weight: 600;
+            background: linear-gradient(135deg, #a8c6ff, #5b6bf0);
+            will-change: transform;
+        }
+
+        .library-post::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .library-post:hover::before {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        .library-post:nth-child(2n) {
+            background: linear-gradient(135deg, #9ab3ff, #4a56c4);
+        }
+
+        .library-post:nth-child(3n) {
+            background: linear-gradient(135deg, #8cc0ff, #4cc9f0);
+        }
+
+        .library-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+        }
+
+        .library-post-content {
+            flex: 1;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .library-post-text {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .library-post-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 10px;
+            color: #000000;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        .library-post-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+
+        .library-action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: #000000;
+            transition: var(--transition);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .library-action-btn:hover {
+            transform: scale(1.2);
+            background: rgba(76, 201, 240, 0.7);
+            color: white;
+        }
+
+        .empty-library {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .empty-library i {
+            font-size: 40px;
+            margin-bottom: 10px;
+            color: var(--light-gray);
+        }
+
+        .bin-actions {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .post-checkbox {
+            margin-right: 8px;
+        }
+
+        .bin-post {
+            background: linear-gradient(135deg, #ffa8a8, #f05b5b) !important;
+        }
+
+        .bin-post:nth-child(2n) {
+            background: linear-gradient(135deg, #ff9a9a, #e04a4a) !important;
+        }
+
+        .bin-post:nth-child(3n) {
+            background: linear-gradient(135deg, #ff8c8c, #d03a3a) !important;
+        }
+
+        .history-controls {
+            display: flex;
+            gap: 8px;
+            margin-left: auto;
+        }
+
+        .history-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            color: #4ade80;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .history-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .history-btn:not(:disabled):hover {
+            background: #4ade80;
+            color: #1a202c;
+            transform: scale(1.1);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .recurring-section {
+            background: var(--glass-bg);
+            border-radius: var(--border-radius);
+            box-shadow: var(--glass-shadow);
+            padding: 15px;
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            animation: slideInUp 0.6s ease;
+        }
+
+        .recurring-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .form-row-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .form-row-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .recurring-posts-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .recurring-post {
+            background: linear-gradient(135deg, #ffd8a8, #ffa94d);
+            padding: 12px;
+            border-radius: var(--border-radius);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--glass-shadow);
+            border: 1px solid var(--glass-border);
+            animation: fadeIn 0.5s ease;
+            backdrop-filter: blur(5px);
+            color: #000000;
+            font-weight: 600;
+            will-change: transform;
+        }
+
+        .recurring-post::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            transition: all 0.5s;
+            opacity: 0;
+        }
+
+        .recurring-post:hover::before {
+            opacity: 1;
+            transform: rotate(30deg) translate(10%, 10%);
+        }
+
+        .recurring-post:nth-child(2n) {
+            background: linear-gradient(135deg, #ffc078, #ff922b);
+        }
+
+        .recurring-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            filter: brightness(1.1);
+        }
+
+        .recurring-post-content {
+            flex: 1;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .recurring-post-text {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            font-size: 12px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            font-weight: 600;
+            color: #000000;
+        }
+
+        .recurring-post-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+            font-size: 10px;
+            color: #000000;
+            flex-wrap: wrap;
+            font-weight: 600;
+        }
+
+        .recurring-post-actions {
+            display: flex;
+            gap: 6px;
+            justify-content: flex-end;
+            position: relative;
+            z-index: 1;
+        }
+
+        .recurring-action-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: #000000;
+            transition: var(--transition);
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .recurring-action-btn:hover {
+            transform: scale(1.2);
+            background: rgba(76, 201, 240, 0.7);
+            color: white;
+        }
+
+        .recurring-status {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            transition: var(--transition);
+        }
+
+        .status-active {
+            background: rgba(209, 236, 241, 0.9);
+            color: #0c5460;
+        }
+
+        .status-completed {
+            background: rgba(255, 243, 205, 0.9);
+            color: #856404;
+        }
+
+        .status-paused {
+            background: rgba(248, 215, 218, 0.9);
+            color: #721c24;
+        }
+
+        .scroll-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient-primary);
+            border: none;
+            border-radius: 50%;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+            z-index: 999;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            animation: jetFloat 3s ease-in-out infinite;
+            touch-action: manipulation;
+            will-change: transform;
+        }
+
+        .scroll-to-top::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .scroll-to-top:hover::before {
+            left: 100%;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(91, 107, 240, 0.4);
+            animation: jetHover 0.5s ease;
+        }
+
+        @keyframes jetFloat {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes jetHover {
+            0% { transform: translateY(-5px) scale(1.1); }
+            50% { transform: translateY(-8px) scale(1.15); }
+            100% { transform: translateY(-5px) scale(1.1); }
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .platforms-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .platform-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .platform-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .platform-icon {
+            font-size: 24px;
+        }
+
+        .platform-name {
+            font-weight: 600;
+            flex: 1;
+        }
+
+        .platform-status {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .platform-status.connected {
+            background: rgba(76, 201, 240, 0.2);
+            color: var(--success);
+        }
+
+        .platform-status.disconnected {
+            background: rgba(255, 107, 139, 0.2);
+            color: #ff6b8b;
+        }
+
+        .connect-btn {
+            min-width: 100px;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: flex;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .platforms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+            }
+            
+            .posts-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-footer {
+                justify-content: center;
+            }
+            
+            .btn {
+                padding: 7px 10px;
+                font-size: 12px;
+            }
+            
+            .calendar-day {
+                min-height: 65px;
+                padding: 5px;
+            }
+            
+            .scheduled-post {
+                font-size: 8px;
+                padding: 2px 3px;
+            }
+
+            .history-controls {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .bin-actions {
+                justify-content: center;
+            }
+
+            .scroll-to-top {
+                width: 45px;
+                height: 45px;
+                font-size: 18px;
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .avatar {
+                width: 32px;
+                height: 32px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 8px;
+            }
+            
+            header {
+                padding: 10px 12px;
+            }
+            
+            .logo h1 {
+                font-size: 16px;
+            }
+            
+            .calendar-day {
+                min-height: 60px;
+                font-size: 11px;
+            }
+            
+            .day-number {
+                font-size: 11px;
+            }
+            
+            .scheduled-post {
+                font-size: 7px;
+            }
+            
+            .modal-body {
+                padding: 12px;
+            }
+            
+            .modal-header {
+                padding: 12px;
+            }
+
+            .calendar-header {
+                padding: 12px;
+            }
+
+            .current-month {
+                font-size: 14px;
+                padding: 5px 10px;
+            }
+
+            .nav-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .history-btn {
+                width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+
+            .scroll-to-top {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .avatar {
+                width: 30px;
+                height: 30px;
+                font-size: 11px;
+            }
+            
+            .avatar i {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .posts-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .platforms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+            }
+            
+            .avatar {
+                width: 28px;
+                height: 28px;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+
+        button:focus, input:focus, textarea:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        .text-shadow {
+            text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .gradient-text {
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+        }
+
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .shine {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .shine:hover::before {
+            left: 100%;
+        }
+
+        .ripple {
+            position: relative;
+            overflow: hidden;
+            transform: translate3d(0, 0, 0);
+        }
+
+        .ripple:after {
+            content: "";
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            background-image: radial-gradient(circle, #fff 10%, transparent 10.01%);
+            background-repeat: no-repeat;
+            background-position: 50%;
+            transform: scale(10, 10);
+            opacity: 0;
+            transition: transform .5s, opacity 1s;
+        }
+
+        .ripple:active:after {
+            transform: scale(0, 0);
+            opacity: .2;
+            transition: 0s;
+        }
+
+        .border-animate {
+            position: relative;
+        }
+
+        .border-animate::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid transparent;
+            border-radius: inherit;
+            background: linear-gradient(45deg, var(--primary), var(--accent)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .border-animate:hover::before {
+            opacity: 1;
+        }
+
+        /* ===== MOBILE OPTIMIZATION ===== */
+        @media only screen and (max-width: 768px), 
+               only screen and (hover: none) and (pointer: coarse),
+               (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+            
+            body {
+                overflow-y: auto;
+                max-height: 100vh;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .container {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 8px !important;
+                box-sizing: border-box !important;
+                overflow-x: hidden !important;
+            }
+            
+            .dashboard {
+                flex-direction: column !important;
+                gap: 10px !important;
+                min-height: auto !important;
+            }
+            
+            .calendar-days {
+                display: grid !important;
+                grid-template-columns: repeat(7, 1fr) !important;
+                gap: 1px !important;
+            }
+            
+            .calendar-day {
+                min-height: 50px !important;
+                padding: 3px !important;
+                font-size: 10px !important;
+                width: calc(100vw / 7 - 2px) !important;
+                max-width: calc(100vw / 7 - 2px) !important;
+                overflow: hidden !important;
+            }
+            
+            .day-number {
+                font-size: 10px !important;
+                font-weight: bold !important;
+            }
+            
+            .scheduled-post {
+                font-size: 7px !important;
+                padding: 1px 2px !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+            }
+            
+            .posts-list,
+            .library-posts,
+            .recurring-posts-list {
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            .post-item,
+            .library-post,
+            .recurring-post {
+                padding: 10px !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                min-height: auto !important;
+            }
+            
+            .action-buttons {
+                justify-content: center !important;
+                width: 100% !important;
+            }
+            
+            .btn {
+                padding: 6px 8px !important;
+                font-size: 11px !important;
+                min-width: auto !important;
+                flex: 1 !important;
+            }
+            
+            .calendar-header {
+                flex-direction: column !important;
+                gap: 10px !important;
+                padding: 10px !important;
+            }
+            
+            .month-navigation {
+                width: 100% !important;
+                justify-content: center !important;
+            }
+            
+            .current-month {
+                font-size: 14px !important;
+                padding: 4px 8px !important;
+                text-align: center !important;
+            }
+            
+            .modal-content {
+                max-width: 95vw !important;
+                margin: 5px !important;
+                width: 95vw !important;
+                max-height: 85vh !important;
+            }
+            
+            .platforms-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr)) !important;
+                gap: 6px !important;
+            }
+            
+            .platform-label {
+                padding: 6px 3px !important;
+                font-size: 10px !important;
+            }
+            
+            .form-control {
+                font-size: 16px !important;
+            }
+            
+            textarea.form-control {
+                font-size: 14px !important;
+            }
+            
+            .user-info {
+                flex-wrap: wrap !important;
+                justify-content: flex-end !important;
+            }
+            
+            .history-controls {
+                margin-left: 0 !important;
+                margin-top: 0 !important;
+            }
+            
+            * {
+                max-width: 100vw !important;
+                box-sizing: border-box !important;
+            }
+            
+            body,
+            html {
+                overflow-x: hidden !important;
+                position: relative !important;
+                width: 100vw !important;
+                max-width: 100vw !important;
+                height: 100% !important;
+            }
+            
+            .calendar-weekdays {
+                font-size: 10px !important;
+                padding: 6px 0 !important;
+            }
+            
+            .weekday {
+                padding: 6px 2px !important;
+            }
+            
+            .content-section.active {
+                max-height: none !important;
+                overflow: visible !important;
+            }
+            
+            .main-content {
+                max-height: none !important;
+                overflow: visible !important;
+            }
+        }
+
+        @supports (-webkit-touch-callout: none) {
+            body {
+                -webkit-text-size-adjust: 100%;
+            }
+            
+            .calendar-day,
+            .btn,
+            .nav-link {
+                cursor: default;
+            }
+        }
+
+        @media screen and (-webkit-min-device-pixel-ratio: 0) and (max-width: 768px) {
+            select,
+            input,
+            textarea {
+                font-size: 16px !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-robot"></i></div>
+                <h1 contenteditable="true">G,SQUAD PRO BOT</h1>
+            </div>
+            <div class="user-info">
+                <button class="btn btn-outline" id="manage-platforms-btn">
+                    <i class="fas fa-plug"></i>
+                    <span>Connections</span>
+                </button>
+                <div class="history-controls">
+                    <button class="history-btn" id="undo-btn" title="Undo">
+                        <i class="fas fa-undo"></i>
+                    </button>
+                    <button class="history-btn" id="redo-btn" title="Redo">
+                        <i class="fas fa-redo"></i>
+                    </button>
+                </div>
+                <div class="avatar" id="exit-btn" title="Go Back">
+                    <i class="fas fa-arrow-left"></i>
+                </div>
+                <button class="mobile-menu-btn" id="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <aside class="sidebar" id="sidebar">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-tab="calendar">
+                            <span class="nav-icon"><i class="fas fa-calendar-alt"></i></span>
+                            <span>Calendar</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="libraries">
+                            <span class="nav-icon"><i class="fas fa-book"></i></span>
+                            <span>Post Libraries</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="recurring">
+                            <span class="nav-icon"><i class="fas fa-redo"></i></span>
+                            <span>Recurring Posts</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="bin">
+                            <span class="nav-icon"><i class="fas fa-trash"></i></span>
+                            <span>Bin</span>
+                        </a>
+                    </li>
+                </ul>
+            </aside>
+
+            <main class="main-content">
+                <div class="content-section active" id="calendar-section">
+                    <div class="calendar-header">
+                        <div class="month-navigation">
+                            <button class="nav-btn" id="prev-month">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <h2 class="current-month" id="current-month">September 2023</h2>
+                            <button class="nav-btn" id="next-month">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                        <div class="action-buttons">
+                            <button class="btn btn-outline" id="today-btn">
+                                <i class="fas fa-calendar-day"></i>
+                                <span>Today</span>
+                            </button>
+                            <button class="btn btn-primary" id="schedule-post-btn">
+                                <i class="fas fa-plus"></i>
+                                <span>Schedule</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="calendar">
+                        <div class="calendar-weekdays">
+                            <div class="weekday">Sun</div>
+                            <div class="weekday">Mon</div>
+                            <div class="weekday">Tue</div>
+                            <div class="weekday">Wed</div>
+                            <div class="weekday">Thu</div>
+                            <div class="weekday">Fri</div>
+                            <div class="weekday">Sat</div>
+                        </div>
+                        <div class="calendar-days" id="calendar-days">
+                        </div>
+                    </div>
+
+                    <div class="scheduled-posts">
+                        <h3 class="section-title">
+                            <span class="section-icon"><i class="fas fa-list-alt"></i></span>
+                            <span>Scheduled Posts</span>
+                        </h3>
+                        <div class="posts-list" id="posts-list">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section" id="libraries-section">
+                    <div class="post-libraries">
+                        <h3 class="section-title">
+                            <span class="section-icon"><i class="fas fa-book"></i></span>
+                            <span>Post Libraries</span>
+                        </h3>
+                        
+                        <div class="library-tabs">
+                            <button class="library-tab active" data-library="all">All Posts</button>
+                            <button class="library-tab" data-library="published">Published</button>
+                            <button class="library-tab" data-library="scheduled">Scheduled</button>
+                            <button class="library-tab" data-library="drafts">Drafts</button>
+                        </div>
+                        
+                        <div class="library-stats">
+                            <div class="stat-card">
+                                <div class="stat-value" id="total-posts">0</div>
+                                <div class="stat-label">Total Posts</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="published-posts">0</div>
+                                <div class="stat-label">Published</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="scheduled-posts">0</div>
+                                <div class="stat-label">Scheduled</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="draft-posts">0</div>
+                                <div class="stat-label">Drafts</div>
+                            </div>
+                        </div>
+                        
+                        <div class="library-filters">
+                            <select class="filter-select" id="platform-filter">
+                                <option value="all">All Platforms</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="twitter">Twitter</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="snapchat">Snapchat</option>
+                            </select>
+                            <select class="filter-select" id="date-filter">
+                                <option value="all">All Time</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                            <input type="text" class="library-search" id="library-search" placeholder="Search posts...">
+                        </div>
+                        
+                        <div class="library-content active" id="library-all">
+                            <div class="library-posts" id="all-posts-list">
+                            </div>
+                        </div>
+                        
+                        <div class="library-content" id="library-published">
+                            <div class="library-posts" id="published-posts-list">
+                            </div>
+                        </div>
+                        
+                        <div class="library-content" id="library-scheduled">
+                            <div class="library-posts" id="scheduled-posts-list">
+                            </div>
+                        </div>
+                        
+                        <div class="library-content" id="library-drafts">
+                            <div class="library-posts" id="draft-posts-list">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section" id="recurring-section">
+                    <div class="recurring-section">
+                        <h3 class="section-title">
+                            <span class="section-icon"><i class="fas fa-redo"></i></span>
+                            <span>Recurring Posts</span>
+                        </h3>
+                        
+                        <div class="recurring-form">
+                            <div class="form-group">
+                                <label class="form-label" for="recurring-content">Post Content</label>
+                                <textarea class="form-control" id="recurring-content" placeholder="What would you like to post daily?"></textarea>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Upload Media</label>
+                                <div class="upload-area" id="recurring-upload-area">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <div class="upload-text">Drag & Drop or Click to Upload</div>
+                                    <div class="upload-hint">Supports images, videos, GIFs, and audio files</div>
+                                    <input type="file" id="recurring-media-upload" multiple accept="image/*,video/*,audio/*" style="display: none;">
+                                </div>
+                                <div class="media-preview" id="recurring-media-preview">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row-3">
+                                <div class="form-group">
+                                    <label class="form-label" for="recurring-start-date">Start Date</label>
+                                    <input type="date" class="form-control" id="recurring-start-date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="recurring-end-date">End Date</label>
+                                    <input type="date" class="form-control" id="recurring-end-date">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="recurring-time">Daily Post Time</label>
+                                    <input type="time" class="form-control" id="recurring-time">
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Platforms</label>
+                                <div class="platforms-grid">
+                                    <input type="checkbox" id="recurring-platform-facebook" class="platform-checkbox" value="facebook">
+                                    <label for="recurring-platform-facebook" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-facebook"></i></span>
+                                        <span class="platform-name">Facebook</span>
+                                    </label>
+                                    
+                                    <input type="checkbox" id="recurring-platform-twitter" class="platform-checkbox" value="twitter">
+                                    <label for="recurring-platform-twitter" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-twitter"></i></span>
+                                        <span class="platform-name">Twitter</span>
+                                    </label>
+                                    
+                                    <input type="checkbox" id="recurring-platform-instagram" class="platform-checkbox" value="instagram">
+                                    <label for="recurring-platform-instagram" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-instagram"></i></span>
+                                        <span class="platform-name">Instagram</span>
+                                    </label>
+                                    
+                                    <input type="checkbox" id="recurring-platform-linkedin" class="platform-checkbox" value="linkedin">
+                                    <label for="recurring-platform-linkedin" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-linkedin"></i></span>
+                                        <span class="platform-name">LinkedIn</span>
+                                    </label>
+                                    
+                                    <input type="checkbox" id="recurring-platform-whatsapp" class="platform-checkbox" value="whatsapp">
+                                    <label for="recurring-platform-whatsapp" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-whatsapp"></i></span>
+                                        <span class="platform-name">WhatsApp</span>
+                                    </label>
+                                    
+                                    <input type="checkbox" id="recurring-platform-tiktok" class="platform-checkbox" value="tiktok">
+                                    <label for="recurring-platform-tiktok" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-tiktok"></i></span>
+                                        <span class="platform-name">TikTok</span>
+                                    </label>
+                                    
+                                    <input type="checkbox" id="recurring-platform-snapchat" class="platform-checkbox" value="snapchat">
+                                    <label for="recurring-platform-snapchat" class="platform-label">
+                                        <span class="platform-icon"><i class="fab fa-snapchat"></i></span>
+                                        <span class="platform-name">Snapchat</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Audience</label>
+                                <div class="audience-selector">
+                                    <div class="audience-option">
+                                        <input type="radio" id="recurring-audience-public" name="recurring-audience" value="public" checked>
+                                        <label for="recurring-audience-public">Public</label>
+                                    </div>
+                                    <div class="audience-option">
+                                        <input type="radio" id="recurring-audience-friends" name="recurring-audience" value="friends">
+                                        <label for="recurring-audience-friends">Friends Only</label>
+                                    </div>
+                                    <div class="audience-option">
+                                        <input type="radio" id="recurring-audience-private" name="recurring-audience" value="private">
+                                        <label for="recurring-audience-private">Private</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button class="btn btn-primary" id="create-recurring-post">
+                                    <i class="fas fa-plus"></i>
+                                    <span>Create Recurring Post</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="recurring-posts-list" id="recurring-posts-list">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-section" id="bin-section">
+                    <div class="post-libraries">
+                        <h3 class="section-title">
+                            <span class="section-icon"><i class="fas fa-trash"></i></span>
+                            <span>Bin</span>
+                        </h3>
+                        
+                        <div class="library-stats">
+                            <div class="stat-card">
+                                <div class="stat-value" id="bin-posts">0</div>
+                                <div class="stat-label">Deleted Posts</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-value" id="selected-posts">0</div>
+                                <div class="stat-label">Selected</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bin-actions">
+                            <button class="btn btn-primary" id="restore-selected-btn">
+                                <i class="fas fa-undo"></i>
+                                <span>Restore Selected</span>
+                            </button>
+                            <button class="btn btn-danger" id="empty-bin-btn">
+                                <i class="fas fa-trash"></i>
+                                <span>Empty Bin</span>
+                            </button>
+                        </div>
+                        
+                        <div class="library-filters">
+                            <select class="filter-select" id="bin-platform-filter">
+                                <option value="all">All Platforms</option>
+                                <option value="facebook">Facebook</option>
+                                <option value="twitter">Twitter</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="linkedin">LinkedIn</option>
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="tiktok">TikTok</option>
+                                <option value="snapchat">Snapchat</option>
+                            </select>
+                            <select class="filter-select" id="bin-date-filter">
+                                <option value="all">All Time</option>
+                                <option value="today">Today</option>
+                                <option value="week">This Week</option>
+                                <option value="month">This Month</option>
+                            </select>
+                            <input type="text" class="library-search" id="bin-search" placeholder="Search deleted posts...">
+                        </div>
+                        
+                        <div class="library-posts" id="bin-posts-list">
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <button class="scroll-to-top" id="scroll-to-top" title="Scroll to top">
+        <i class="fas fa-paper-plane"></i>
+    </button>
+
+    <div class="modal" id="schedule-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Schedule New Post</h3>
+                <button class="close-btn" id="close-schedule-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="post-content">Post Content</label>
+                    <textarea class="form-control" id="post-content" placeholder="What would you like to post?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Upload Media</label>
+                    <div class="upload-area" id="upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">Drag & Drop or Click to Upload</div>
+                        <div class="upload-hint">Supports images, videos, GIFs, and audio files</div>
+                        <input type="file" id="media-upload" multiple accept="image/*,video/*,audio/*" style="display: none;">
+                    </div>
+                    <div class="media-preview" id="media-preview">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="post-date">Date</label>
+                        <input type="date" class="form-control" id="post-date">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="post-time">Time</label>
+                        <input type="time" class="form-control" id="post-time">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Platforms</label>
+                    <div class="platforms-grid">
+                        <input type="checkbox" id="platform-facebook" class="platform-checkbox" value="facebook">
+                        <label for="platform-facebook" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-facebook"></i></span>
+                            <span class="platform-name">Facebook</span>
+                        </label>
+                        
+                        <input type="checkbox" id="platform-twitter" class="platform-checkbox" value="twitter">
+                        <label for="platform-twitter" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-twitter"></i></span>
+                            <span class="platform-name">Twitter</span>
+                        </label>
+                        
+                        <input type="checkbox" id="platform-instagram" class="platform-checkbox" value="instagram">
+                        <label for="platform-instagram" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-instagram"></i></span>
+                            <span class="platform-name">Instagram</span>
+                        </label>
+                        
+                        <input type="checkbox" id="platform-linkedin" class="platform-checkbox" value="linkedin">
+                        <label for="platform-linkedin" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-linkedin"></i></span>
+                            <span class="platform-name">LinkedIn</span>
+                        </label>
+                        
+                        <input type="checkbox" id="platform-whatsapp" class="platform-checkbox" value="whatsapp">
+                        <label for="platform-whatsapp" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-whatsapp"></i></span>
+                            <span class="platform-name">WhatsApp</span>
+                        </label>
+                        
+                        <input type="checkbox" id="platform-tiktok" class="platform-checkbox" value="tiktok">
+                        <label for="platform-tiktok" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-tiktok"></i></span>
+                            <span class="platform-name">TikTok</span>
+                        </label>
+                        
+                        <input type="checkbox" id="platform-snapchat" class="platform-checkbox" value="snapchat">
+                        <label for="platform-snapchat" class="platform-label">
+                            <span class="platform-icon"><i class="fab fa-snapchat"></i></span>
+                            <span class="platform-name">Snapchat</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Audience</label>
+                    <div class="audience-selector">
+                        <div class="audience-option">
+                            <input type="radio" id="audience-public" name="audience" value="public" checked>
+                            <label for="audience-public">Public</label>
+                        </div>
+                        <div class="audience-option">
+                            <input type="radio" id="audience-friends" name="audience" value="friends">
+                            <label for="audience-friends">Friends Only</label>
+                        </div>
+                        <div class="audience-option">
+                            <input type="radio" id="audience-private" name="audience" value="private">
+                            <label for="audience-private">Private</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" id="cancel-schedule">Cancel</button>
+                <button class="btn btn-primary" id="save-schedule">Schedule</button>
+                <button class="btn btn-primary" id="post-now">Post Now</button>
+                <button class="btn btn-outline" id="save-draft">Save as Draft</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirmation-modal" id="confirmation-modal">
+        <div class="confirmation-content">
+            <h3 class="confirmation-title" id="confirmation-title">Confirm Action</h3>
+            <p class="confirmation-text" id="confirmation-text">Are you sure you want to perform this action?</p>
+            <div class="confirmation-buttons">
+                <button class="btn btn-outline" id="confirm-cancel">Cancel</button>
+                <button class="btn btn-primary" id="confirm-action">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="platforms-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Platform Connections</h3>
+                <button class="close-btn" id="close-platforms-modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="platforms-list" id="platforms-list">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        (function() {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+            
+            if (isMobile || isTouchDevice) {
+                document.documentElement.classList.add('mobile-device');
+                document.body.classList.add('mobile-view');
+                
+                document.body.style.overflowX = 'hidden';
+                document.body.style.width = '100vw';
+                
+                const style = document.createElement('style');
+                style.textContent = `
+                    html, body {
+                        max-width: 100vw !important;
+                        overflow-x: hidden !important;
+                        position: relative !important;
+                        touch-action: pan-y;
+                    }
+                    img, video, iframe, canvas {
+                        max-width: 100% !important;
+                        height: auto !important;
+                        touch-action: manipulation;
+                    }
+                    button, a, input, textarea {
+                        touch-action: manipulation;
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                document.addEventListener('touchstart', function() {}, {passive: true});
+                document.addEventListener('touchmove', function() {}, {passive: true});
+            }
+            
+            document.body.style.transform = 'translateZ(0)';
+            document.body.style.backfaceVisibility = 'hidden';
+        })();
+
+        let currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        
+        let animalPosts = [
+            {
+                id: 1,
+                content: "🦁 Just like lions, our brand rules the jungle! King of the market with our latest product launch.",
+                date: new Date(currentYear, currentMonth, 15, 10, 30),
+                platforms: ["facebook", "twitter"],
+                media: [],
+                audience: "public",
+                status: "scheduled",
+                animal: "lion",
+                icon: "🦁"
+            },
+            {
+                id: 2,
+                content: "🐘 Strong and steady wins the race! Our elephant-inspired approach ensures we never forget our customers.",
+                date: new Date(currentYear, currentMonth, 18, 14, 0),
+                platforms: ["linkedin", "twitter"],
+                media: [],
+                audience: "friends",
+                status: "scheduled",
+                animal: "elephant",
+                icon: "🐘"
+            },
+            {
+                id: 3,
+                content: "🐼 Balancing work and play just like pandas! Check out our new work-life balance initiatives.",
+                date: new Date(currentYear, currentMonth, 22, 9, 0),
+                platforms: ["facebook", "instagram"],
+                media: [],
+                audience: "public",
+                status: "scheduled",
+                animal: "panda",
+                icon: "🐼"
+            },
+            {
+                id: 4,
+                content: "🐯 Fierce and focused like a tiger! Our team is hunting for new opportunities in the market.",
+                date: new Date(currentYear, currentMonth, 5, 16, 0),
+                platforms: ["linkedin"],
+                media: [],
+                audience: "public",
+                status: "published",
+                animal: "tiger",
+                icon: "🐯"
+            },
+            {
+                id: 5,
+                content: "🦒 Reaching new heights with giraffe-like vision! Our quarterly report shows impressive growth.",
+                date: new Date(currentYear, currentMonth, 8, 11, 0),
+                platforms: ["facebook", "instagram"],
+                media: [],
+                audience: "public",
+                status: "scheduled",
+                animal: "giraffe",
+                icon: "🦒"
+            },
+            {
+                id: 6,
+                content: "🦊 Clever as a fox! Our new marketing strategy is smarter than ever.",
+                date: new Date(currentYear, currentMonth, 25, 14, 30),
+                platforms: ["twitter", "instagram"],
+                media: [],
+                audience: "public",
+                status: "draft",
+                animal: "fox",
+                icon: "🦊"
+            }
+        ];
+
+        let deletedPosts = [];
+        let recurringPosts = [];
+        let history = [JSON.parse(JSON.stringify(animalPosts))];
+        let historyIndex = 0;
+        
+        const calendarDays = document.getElementById('calendar-days');
+        const currentMonthElement = document.getElementById('current-month');
+        const prevMonthBtn = document.getElementById('prev-month');
+        const nextMonthBtn = document.getElementById('next-month');
+        const todayBtn = document.getElementById('today-btn');
+        const schedulePostBtn = document.getElementById('schedule-post-btn');
+        const scheduleModal = document.getElementById('schedule-modal');
+        const closeScheduleModal = document.getElementById('close-schedule-modal');
+        const cancelSchedule = document.getElementById('cancel-schedule');
+        const saveSchedule = document.getElementById('save-schedule');
+        const postNow = document.getElementById('post-now');
+        const saveDraft = document.getElementById('save-draft');
+        const postsList = document.getElementById('posts-list');
+        const uploadArea = document.getElementById('upload-area');
+        const mediaUpload = document.getElementById('media-upload');
+        const mediaPreview = document.getElementById('media-preview');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const confirmationModal = document.getElementById('confirmation-modal');
+        const confirmationTitle = document.getElementById('confirmation-title');
+        const confirmationText = document.getElementById('confirmation-text');
+        const confirmCancel = document.getElementById('confirm-cancel');
+        const confirmAction = document.getElementById('confirm-action');
+        const toast = document.getElementById('toast');
+        const undoBtn = document.getElementById('undo-btn');
+        const redoBtn = document.getElementById('redo-btn');
+        const managePlatformsBtn = document.getElementById('manage-platforms-btn');
+        const platformsModal = document.getElementById('platforms-modal');
+        const closePlatformsModal = document.getElementById('close-platforms-modal');
+        const exitBtn = document.getElementById('exit-btn');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const contentSections = document.querySelectorAll('.content-section');
+        const libraryTabs = document.querySelectorAll('.library-tab');
+        const libraryContents = document.querySelectorAll('.library-content');
+        const platformFilter = document.getElementById('platform-filter');
+        const dateFilter = document.getElementById('date-filter');
+        const librarySearch = document.getElementById('library-search');
+        const allPostsList = document.getElementById('all-posts-list');
+        const publishedPostsList = document.getElementById('published-posts-list');
+        const scheduledPostsList = document.getElementById('scheduled-posts-list');
+        const draftPostsList = document.getElementById('draft-posts-list');
+        const totalPostsElement = document.getElementById('total-posts');
+        const publishedPostsElement = document.getElementById('published-posts');
+        const scheduledPostsElement = document.getElementById('scheduled-posts');
+        const draftPostsElement = document.getElementById('draft-posts');
+        const binPostsElement = document.getElementById('bin-posts');
+        const selectedPostsElement = document.getElementById('selected-posts');
+        const restoreSelectedBtn = document.getElementById('restore-selected-btn');
+        const emptyBinBtn = document.getElementById('empty-bin-btn');
+        const binPlatformFilter = document.getElementById('bin-platform-filter');
+        const binDateFilter = document.getElementById('bin-date-filter');
+        const binSearch = document.getElementById('bin-search');
+        const binPostsList = document.getElementById('bin-posts-list');
+        const recurringContent = document.getElementById('recurring-content');
+        const recurringUploadArea = document.getElementById('recurring-upload-area');
+        const recurringMediaUpload = document.getElementById('recurring-media-upload');
+        const recurringMediaPreview = document.getElementById('recurring-media-preview');
+        const recurringStartDate = document.getElementById('recurring-start-date');
+        const recurringEndDate = document.getElementById('recurring-end-date');
+        const recurringTime = document.getElementById('recurring-time');
+        const createRecurringPostBtn = document.getElementById('create-recurring-post');
+        const recurringPostsList = document.getElementById('recurring-posts-list');
+        const scrollToTopBtn = document.getElementById('scroll-to-top');
+        
+        let pendingAction = null;
+        let pendingPostId = null;
+        
+        const colors = [
+            'linear-gradient(135deg, #4a6bff, #8a2be2)',
+            'linear-gradient(135deg, #ff6b9d, #c71585)',
+            'linear-gradient(135deg, #9d4edd, #5a189a)',
+            'linear-gradient(135deg, #87ceeb, #4682b4)',
+            'linear-gradient(135deg, #ffb6c1, #ff69b4)',
+            'linear-gradient(135deg, #d8bfd8, #9370db)'
+        ];
+        
+        let currentColorIndex = 0;
+        
+        function changeBackgroundColor() {
+            document.body.style.background = colors[currentColorIndex];
+            currentColorIndex = (currentColorIndex + 1) % colors.length;
+        }
+        
+        function saveToHistory() {
+            if (historyIndex < history.length - 1) {
+                history = history.slice(0, historyIndex + 1);
+            }
+            
+            history.push(JSON.parse(JSON.stringify(animalPosts)));
+            historyIndex++;
+            
+            if (history.length > 50) {
+                history.shift();
+                historyIndex--;
+            }
+            
+            updateHistoryButtons();
+        }
+        
+        function updateHistoryButtons() {
+            undoBtn.disabled = historyIndex <= 0;
+            redoBtn.disabled = historyIndex >= history.length - 1;
+        }
+        
+        function showToast(message, isError = false) {
+            toast.textContent = message;
+            toast.className = 'toast';
+            if (isError) {
+                toast.classList.add('error');
+            }
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        function showConfirmation(action, postId) {
+            pendingAction = action;
+            pendingPostId = postId;
+            
+            if (action === 'delete') {
+                confirmationTitle.textContent = 'Delete Post';
+                confirmationText.textContent = 'Are you sure you want to delete this post? It will be moved to the bin.';
+                confirmAction.textContent = 'Delete';
+                confirmAction.className = 'btn btn-primary';
+            } else if (action === 'edit') {
+                confirmationTitle.textContent = 'Edit Post';
+                confirmationText.textContent = 'Are you sure you want to edit this post? Any changes will be applied immediately.';
+                confirmAction.textContent = 'Edit';
+                confirmAction.className = 'btn btn-primary';
+            } else if (action === 'repost') {
+                confirmationTitle.textContent = 'Repost';
+                confirmationText.textContent = 'Are you sure you want to repost this content?';
+                confirmAction.textContent = 'Repost';
+                confirmAction.className = 'btn btn-primary';
+            } else if (action === 'empty-bin') {
+                confirmationTitle.textContent = 'Empty Bin';
+                confirmationText.textContent = 'Are you sure you want to permanently delete all posts in the bin? This action cannot be undone.';
+                confirmAction.textContent = 'Empty Bin';
+                confirmAction.className = 'btn btn-danger';
+            }
+            
+            confirmationModal.style.display = 'flex';
+        }
+        
+        function updateUI() {
+            renderCalendar(currentMonth, currentYear);
+            renderScheduledPosts();
+            updateLibraryStats();
+            renderPostLibraries();
+            renderBinPosts();
+            renderRecurringPosts();
+        }
+        
+        function initScrollToTop() {
+            const scrollHandler = function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopBtn.classList.add('show');
+                } else {
+                    scrollToTopBtn.classList.remove('show');
+                }
+            };
+            
+            window.addEventListener('scroll', scrollHandler, { passive: true });
+        }
+        
+        function savePlatformConnections(connections) {
+            localStorage.setItem('platform_connections', JSON.stringify(connections));
+        }
+        
+        function loadPlatformConnections() {
+            const saved = localStorage.getItem('platform_connections');
+            return saved ? JSON.parse(saved) : {};
+        }
+        
+        function updatePlatformConnection(platform, connected = true) {
+            const connections = loadPlatformConnections();
+            connections[platform] = connected;
+            savePlatformConnections(connections);
+        }
+        
+        function disconnectPlatform(platform) {
+            const connections = loadPlatformConnections();
+            connections[platform] = false;
+            savePlatformConnections(connections);
+        }
+        
+        function checkPlatformConnection(platform) {
+            const connections = loadPlatformConnections();
+            return connections[platform] || false;
+        }
+        
+        function getPlatformUrl(platform) {
+            const urls = {
+                'facebook': 'https://www.facebook.com',
+                'twitter': 'https://twitter.com',
+                'instagram': 'https://www.instagram.com',
+                'linkedin': 'https://www.linkedin.com',
+                'whatsapp': 'https://web.whatsapp.com',
+                'tiktok': 'https://www.tiktok.com',
+                'snapchat': 'https://www.snapchat.com'
+            };
+            return urls[platform] || '#';
+        }
+        
+        function openPlatformDirect(platform) {
+            const url = getPlatformUrl(platform);
+            window.open(url, '_blank');
+            
+            updatePlatformConnection(platform, true);
+            showToast(`Opening ${platform.charAt(0).toUpperCase() + platform.slice(1)}...`);
+            
+            setTimeout(() => {
+                showToast(`Successfully connected to ${platform.charAt(0).toUpperCase() + platform.slice(1)}!`);
+                setTimeout(() => {
+                    showPlatformsModal();
+                }, 500);
+            }, 1000);
+        }
+        
+        function showPlatformsModal() {
+            const platforms = [
+                { id: 'facebook', name: 'Facebook', icon: 'fab fa-facebook', color: '#1877f2' },
+                { id: 'twitter', name: 'Twitter', icon: 'fab fa-twitter', color: '#1da1f2' },
+                { id: 'instagram', name: 'Instagram', icon: 'fab fa-instagram', color: '#e4405f' },
+                { id: 'linkedin', name: 'LinkedIn', icon: 'fab fa-linkedin', color: '#0a66c2' },
+                { id: 'whatsapp', name: 'WhatsApp', icon: 'fab fa-whatsapp', color: '#25d366' },
+                { id: 'tiktok', name: 'TikTok', icon: 'fab fa-tiktok', color: '#000000' },
+                { id: 'snapchat', name: 'Snapchat', icon: 'fab fa-snapchat', color: '#fffc00' }
+            ];
+            
+            const list = document.getElementById('platforms-list');
+            list.innerHTML = '';
+            
+            platforms.forEach(platform => {
+                const isConnected = checkPlatformConnection(platform.id);
+                
+                const platformEl = document.createElement('div');
+                platformEl.className = 'platform-item';
+                platformEl.innerHTML = `
+                    <div class="platform-info">
+                        <span class="platform-icon" style="color: ${platform.color}">
+                            <i class="${platform.icon}"></i>
+                        </span>
+                        <span class="platform-name">${platform.name}</span>
+                        <span class="platform-status ${isConnected ? 'connected' : 'disconnected'}">
+                            ${isConnected ? 'Connected' : 'Not Connected'}
+                        </span>
+                    </div>
+                    <button class="btn ${isConnected ? 'btn-danger' : 'btn-primary'} connect-btn" 
+                            data-platform="${platform.id}">
+                        ${isConnected ? 'Disconnect' : 'Connect'}
+                    </button>
+                `;
+                
+                list.appendChild(platformEl);
+            });
+            
+            list.querySelectorAll('.connect-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const platform = this.getAttribute('data-platform');
+                    const isConnected = checkPlatformConnection(platform);
+                    
+                    if (isConnected) {
+                        disconnectPlatform(platform);
+                        showToast(`${platform.charAt(0).toUpperCase() + platform.slice(1)} disconnected successfully!`);
+                        setTimeout(() => {
+                            showPlatformsModal();
+                        }, 500);
+                    } else {
+                        openPlatformDirect(platform);
+                    }
+                });
+            });
+            
+            platformsModal.style.display = 'flex';
+        }
+        
+        function renderCalendar(month, year) {
+            const monthNames = ["January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+            ];
+            currentMonthElement.textContent = `${monthNames[month]} ${year}`;
+            
+            calendarDays.innerHTML = '';
+            
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const daysInMonth = lastDay.getDate();
+            const startingDay = firstDay.getDay();
+            
+            for (let i = 0; i < startingDay; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.classList.add('calendar-day', 'other-month');
+                calendarDays.appendChild(emptyDay);
+            }
+            
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('calendar-day');
+                
+                if (day === today.getDate() && month === today.getMonth() && year === today.getFullYear()) {
+                    dayElement.classList.add('today');
+                }
+                
+                const dayNumber = document.createElement('div');
+                dayNumber.classList.add('day-number');
+                
+                const dayPosts = animalPosts.filter(post => {
+                    const postDate = new Date(post.date);
+                    return postDate.getDate() === day && 
+                           postDate.getMonth() === month && 
+                           postDate.getFullYear() === year;
+                });
+                
+                const eventCount = dayPosts.length;
+                
+                dayNumber.innerHTML = `
+                    <span>${day}</span>
+                    ${eventCount > 0 ? `<span class="event-count">${eventCount}</span>` : ''}
+                `;
+                dayElement.appendChild(dayNumber);
+                
+                const dayEvents = document.createElement('div');
+                dayEvents.classList.add('day-events');
+                
+                dayPosts.slice(0, 2).forEach(post => {
+                    const postElement = document.createElement('div');
+                    postElement.classList.add('scheduled-post');
+                    if (post.media && post.media.length > 0) {
+                        postElement.classList.add('media');
+                    }
+                    
+                    postElement.innerHTML = `${post.icon} ${post.content.substring(0, 8)}...`;
+                    dayEvents.appendChild(postElement);
+                });
+                
+                if (eventCount > 2) {
+                    const moreEvents = document.createElement('div');
+                    moreEvents.classList.add('scheduled-post');
+                    moreEvents.textContent = `+${eventCount - 2} more`;
+                    dayEvents.appendChild(moreEvents);
+                }
+                
+                dayElement.appendChild(dayEvents);
+                
+                dayElement.addEventListener('click', function() {
+                    openScheduleModal(new Date(year, month, day));
+                });
+                
+                calendarDays.appendChild(dayElement);
+            }
+        }
+        
+        function openScheduleModal(prefilledDate = null) {
+            document.getElementById('post-content').value = '';
+            
+            const now = new Date();
+            const defaultDate = prefilledDate || now;
+            
+            document.getElementById('post-date').value = formatDateForInput(defaultDate);
+            document.getElementById('post-time').value = formatTimeForInput(now);
+            
+            document.querySelectorAll('.platform-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            
+            document.getElementById('audience-public').checked = true;
+            
+            scheduleModal.style.display = 'flex';
+        }
+        
+        function formatDateForInput(date) {
+            const year = date.getFullYear();
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const day = String(date.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        
+        function formatTimeForInput(date) {
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `${hours}:${minutes}`;
+        }
+        
+        function handleFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const mediaItem = document.createElement('div');
+                    mediaItem.classList.add('media-item');
+                    
+                    if (file.type.startsWith('image/')) {
+                        mediaItem.innerHTML = `
+                            <img src="${e.target.result}" alt="Uploaded media">
+                            <button class="remove-media">&times;</button>
+                        `;
+                    } else if (file.type.startsWith('video/')) {
+                        mediaItem.innerHTML = `
+                            <video controls>
+                                <source src="${e.target.result}" type="${file.type}">
+                                Your browser does not support the video tag.
+                            </video>
+                            <button class="remove-media">&times;</button>
+                        `;
+                    } else if (file.type.startsWith('audio/')) {
+                        mediaItem.innerHTML = `
+                            <audio controls>
+                                <source src="${e.target.result}" type="${file.type}">
+                                Your browser does not support the audio tag.
+                            </audio>
+                            <button class="remove-media">&times;</button>
+                        `;
+                    }
+                    
+                    mediaPreview.appendChild(mediaItem);
+                    
+                    mediaItem.querySelector('.remove-media').addEventListener('click', function() {
+                        mediaItem.remove();
+                    });
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function clearMediaPreview() {
+            mediaPreview.innerHTML = '';
+        }
+        
+        function getSelectedPlatforms() {
+            const selectedPlatforms = [];
+            document.querySelectorAll('.platform-checkbox:checked').forEach(checkbox => {
+                selectedPlatforms.push(checkbox.value);
+            });
+            return selectedPlatforms;
+        }
+        
+        function getSelectedAudience() {
+            return document.querySelector('input[name="audience"]:checked').value;
+        }
+        
+        function getMediaFiles() {
+            const mediaItems = [];
+            mediaPreview.querySelectorAll('.media-item').forEach(item => {
+                const img = item.querySelector('img');
+                const video = item.querySelector('video');
+                const audio = item.querySelector('audio');
+                
+                if (img) {
+                    mediaItems.push({ type: 'image', src: img.src });
+                } else if (video) {
+                    mediaItems.push({ type: 'video', src: video.querySelector('source').src });
+                } else if (audio) {
+                    mediaItems.push({ type: 'audio', src: audio.querySelector('source').src });
+                }
+            });
+            return mediaItems;
+        }
+        
+        function getRandomAnimal() {
+            const animals = [
+                { name: "lion", icon: "🦁" },
+                { name: "elephant", icon: "🐘" },
+                { name: "panda", icon: "🐼" },
+                { name: "tiger", icon: "🐯" },
+                { name: "giraffe", icon: "🦒" },
+                { name: "zebra", icon: "🦓" },
+                { name: "monkey", icon: "🐒" },
+                { name: "penguin", icon: "🐧" },
+                { name: "koala", icon: "🐨" },
+                { name: "dolphin", icon: "🐬" },
+                { name: "owl", icon: "🦉" },
+                { name: "fox", icon: "🦊" },
+                { name: "bear", icon: "🐻" },
+                { name: "rabbit", icon: "🐰" },
+                { name: "deer", icon: "🦌" }
+            ];
+            return animals[Math.floor(Math.random() * animals.length)];
+        }
+        
+        function saveScheduledPost() {
+            const content = document.getElementById('post-content').value.trim();
+            const date = document.getElementById('post-date').value;
+            const time = document.getElementById('post-time').value;
+            const selectedPlatforms = getSelectedPlatforms();
+            const audience = getSelectedAudience();
+            const media = getMediaFiles();
+            
+            if (!content) {
+                showToast('Please enter post content', true);
+                return;
+            }
+            
+            if (!date) {
+                showToast('Please select a date', true);
+                return;
+            }
+            
+            if (!time) {
+                showToast('Please select a time', true);
+                return;
+            }
+            
+            if (selectedPlatforms.length === 0) {
+                showToast('Please select at least one platform', true);
+                return;
+            }
+            
+            const unconnectedPlatforms = selectedPlatforms.filter(platform => !checkPlatformConnection(platform));
+            
+            if (unconnectedPlatforms.length > 0) {
+                const platformNames = unconnectedPlatforms.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ');
+                
+                if (confirm(`You need to connect to ${platformNames} first. Connect now?`)) {
+                    const firstPlatform = unconnectedPlatforms[0];
+                    openPlatformDirect(firstPlatform);
+                    return;
+                } else {
+                    showToast('Please connect platforms to schedule posts', true);
+                    return;
+                }
+            }
+            
+            saveToHistory();
+            
+            const [year, month, day] = date.split('-');
+            const [hours, minutes] = time.split(':');
+            const postDate = new Date(year, month - 1, day, hours, minutes);
+            const animal = getRandomAnimal();
+            
+            const newPost = {
+                id: animalPosts.length > 0 ? Math.max(...animalPosts.map(p => p.id)) + 1 : 1,
+                content: content,
+                date: postDate,
+                platforms: selectedPlatforms,
+                media: media,
+                audience: audience,
+                status: "scheduled",
+                animal: animal.name,
+                icon: animal.icon
+            };
+            
+            animalPosts.push(newPost);
+            
+            updateUI();
+            
+            scheduleModal.style.display = 'none';
+            clearMediaPreview();
+            
+            showToast('Post scheduled successfully!');
+        }
+        
+        function postImmediately() {
+            const content = document.getElementById('post-content').value.trim();
+            const selectedPlatforms = getSelectedPlatforms();
+            const audience = getSelectedAudience();
+            const media = getMediaFiles();
+            
+            if (!content) {
+                showToast('Please enter post content', true);
+                return;
+            }
+            
+            if (selectedPlatforms.length === 0) {
+                showToast('Please select at least one platform', true);
+                return;
+            }
+            
+            const unconnectedPlatforms = selectedPlatforms.filter(platform => !checkPlatformConnection(platform));
+            
+            if (unconnectedPlatforms.length > 0) {
+                const platformNames = unconnectedPlatforms.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ');
+                
+                if (confirm(`You need to connect to ${platformNames} first. Connect now?`)) {
+                    const firstPlatform = unconnectedPlatforms[0];
+                    openPlatformDirect(firstPlatform);
+                    return;
+                } else {
+                    showToast('Please connect platforms to post immediately', true);
+                    return;
+                }
+            }
+            
+            saveToHistory();
+            
+            const now = new Date();
+            const animal = getRandomAnimal();
+            
+            const newPost = {
+                id: animalPosts.length > 0 ? Math.max(...animalPosts.map(p => p.id)) + 1 : 1,
+                content: content,
+                date: now,
+                platforms: selectedPlatforms,
+                media: media,
+                audience: audience,
+                status: "published",
+                animal: animal.name,
+                icon: animal.icon
+            };
+            
+            animalPosts.push(newPost);
+            
+            updateUI();
+            
+            scheduleModal.style.display = 'none';
+            clearMediaPreview();
+            
+            showToast('Post published successfully!');
+        }
+        
+        function saveAsDraft() {
+            const content = document.getElementById('post-content').value.trim();
+            const selectedPlatforms = getSelectedPlatforms();
+            const audience = getSelectedAudience();
+            const media = getMediaFiles();
+            
+            if (!content) {
+                showToast('Please enter post content', true);
+                return;
+            }
+            
+            saveToHistory();
+            
+            const now = new Date();
+            const animal = getRandomAnimal();
+            
+            const newPost = {
+                id: animalPosts.length > 0 ? Math.max(...animalPosts.map(p => p.id)) + 1 : 1,
+                content: content,
+                date: now,
+                platforms: selectedPlatforms,
+                media: media,
+                audience: audience,
+                status: "draft",
+                animal: animal.name,
+                icon: animal.icon
+            };
+            
+            animalPosts.push(newPost);
+            
+            updateUI();
+            
+            scheduleModal.style.display = 'none';
+            clearMediaPreview();
+            
+            showToast('Post saved as draft!');
+        }
+        
+        function renderScheduledPosts() {
+            postsList.innerHTML = '';
+            
+            const sortedPosts = [...animalPosts].sort((a, b) => new Date(a.date) - new Date(b.date));
+            
+            sortedPosts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('post-item');
+                
+                const postDate = new Date(post.date);
+                const now = new Date();
+                const isPast = postDate < now;
+                
+                let platformBadges = '';
+                post.platforms.forEach(platform => {
+                    platformBadges += `<span class="platform-badge platform-${platform}">
+                        <i class="fab fa-${platform}"></i> ${platform.charAt(0).toUpperCase() + platform.slice(1)}
+                    </span>`;
+                });
+                
+                let mediaPreview = '';
+                if (post.media && post.media.length > 0) {
+                    mediaPreview = '<div class="post-media">';
+                    post.media.forEach(media => {
+                        if (media.type === 'image') {
+                            mediaPreview += `<div class="post-media-item"><img src="${media.src}" alt="Post media"></div>`;
+                        } else if (media.type === 'video') {
+                            mediaPreview += `<div class="post-media-item"><video src="${media.src}" controls></video></div>`;
+                        } else if (media.type === 'audio') {
+                            mediaPreview += `<div class="post-media-item"><audio src="${media.src}" controls></audio></div>`;
+                        }
+                    });
+                    mediaPreview += '</div>';
+                }
+                
+                let statusText = '';
+                let statusClass = '';
+                
+                if (post.status === 'published') {
+                    statusText = 'Published';
+                    statusClass = 'status-published';
+                } else if (post.status === 'scheduled') {
+                    statusText = isPast ? 'Published' : 'Scheduled';
+                    statusClass = isPast ? 'status-published' : 'status-scheduled';
+                } else if (post.status === 'draft') {
+                    statusText = 'Draft';
+                    statusClass = 'status-draft';
+                }
+                
+                postElement.innerHTML = `
+                    <div class="post-content">
+                        <div class="animal-icon">${post.icon}</div>
+                        <div class="post-text">${post.content}</div>
+                        ${mediaPreview}
+                        <div class="post-meta">
+                            <span>${formatDateDisplay(post.date)}</span>
+                            <span>${formatTimeDisplay(post.date)}</span>
+                            <span>Audience: ${post.audience}</span>
+                            <span class="post-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="post-platforms">
+                            ${platformBadges}
+                        </div>
+                    </div>
+                    <div class="post-actions">
+                        ${post.status === 'scheduled' || post.status === 'draft' ? `
+                            <button class="action-btn direct-post" data-id="${post.id}" title="Post Now">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        ` : ''}
+                        <button class="action-btn edit" data-id="${post.id}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete" data-id="${post.id}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                postsList.appendChild(postElement);
+            });
+            
+            document.querySelectorAll('.action-btn.edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    showConfirmation('edit', postId);
+                });
+            });
+            
+            document.querySelectorAll('.action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    showConfirmation('delete', postId);
+                });
+            });
+            
+            document.querySelectorAll('.action-btn.direct-post').forEach(btn => {
+                btn.addEventListener('click', async function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    const post = animalPosts.find(p => p.id === postId);
+                    
+                    if (!post) return;
+                    
+                    const unconnectedPlatforms = post.platforms.filter(platform => !checkPlatformConnection(platform));
+                    
+                    if (unconnectedPlatforms.length > 0) {
+                        const platformNames = unconnectedPlatforms.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ');
+                        
+                        if (confirm(`You need to connect to ${platformNames} first. Connect now?`)) {
+                            const firstPlatform = unconnectedPlatforms[0];
+                            openPlatformDirect(firstPlatform);
+                            return;
+                        } else {
+                            showToast('Please connect platforms to post', true);
+                            return;
+                        }
+                    }
+                    
+                    post.status = 'published';
+                    post.date = new Date();
+                    
+                    saveToHistory();
+                    
+                    updateUI();
+                    
+                    showToast('Posting to connected platforms...');
+                });
+            });
+        }
+        
+        function formatDateDisplay(date) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(date).toLocaleDateString(undefined, options);
+        }
+        
+        function formatTimeDisplay(date) {
+            const options = { hour: '2-digit', minute: '2-digit' };
+            return new Date(date).toLocaleTimeString(undefined, options);
+        }
+        
+        function editPostConfirmed(postId) {
+            const post = animalPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            document.getElementById('post-content').value = post.content;
+            document.getElementById('post-date').value = formatDateForInput(new Date(post.date));
+            document.getElementById('post-time').value = formatTimeForInput(new Date(post.date));
+            
+            document.querySelectorAll('.platform-checkbox').forEach(checkbox => {
+                checkbox.checked = post.platforms.includes(checkbox.value);
+            });
+            
+            document.getElementById(`audience-${post.audience}`).checked = true;
+            
+            clearMediaPreview();
+            if (post.media && post.media.length > 0) {
+                post.media.forEach(media => {
+                    const mediaItem = document.createElement('div');
+                    mediaItem.classList.add('media-item');
+                    
+                    if (media.type === 'image') {
+                        mediaItem.innerHTML = `
+                            <img src="${media.src}" alt="Post media">
+                            <button class="remove-media">&times;</button>
+                        `;
+                    } else if (media.type === 'video') {
+                        mediaItem.innerHTML = `
+                            <video controls>
+                                <source src="${media.src}" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <button class="remove-media">&times;</button>
+                        `;
+                    } else if (media.type === 'audio') {
+                        mediaItem.innerHTML = `
+                            <audio controls>
+                                <source src="${media.src}" type="audio/mpeg">
+                                Your browser does not support the audio tag.
+                            </audio>
+                            <button class="remove-media">&times;</button>
+                        `;
+                    }
+                    
+                    mediaPreview.appendChild(mediaItem);
+                    
+                    mediaItem.querySelector('.remove-media').addEventListener('click', function() {
+                        mediaItem.remove();
+                    });
+                });
+            }
+            
+            scheduleModal.style.display = 'flex';
+            
+            saveToHistory();
+            
+            const index = animalPosts.findIndex(p => p.id === postId);
+            if (index !== -1) {
+                animalPosts.splice(index, 1);
+            }
+            
+            showToast('Post edited successfully!');
+        }
+        
+        function deletePostConfirmed(postId) {
+            const index = animalPosts.findIndex(p => p.id === postId);
+            if (index !== -1) {
+                const post = animalPosts[index];
+                
+                saveToHistory();
+                
+                post.status = 'deleted';
+                post.deletedAt = new Date();
+                post.originalStatus = post.status;
+                deletedPosts.push(post);
+                
+                animalPosts.splice(index, 1);
+                
+                updateUI();
+                showToast('Post moved to bin!');
+            }
+        }
+        
+        function repostConfirmed(postId) {
+            const post = animalPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            const unconnectedPlatforms = post.platforms.filter(platform => !checkPlatformConnection(platform));
+            
+            if (unconnectedPlatforms.length > 0) {
+                const platformNames = unconnectedPlatforms.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ');
+                
+                if (confirm(`You need to connect to ${platformNames} first. Connect now?`)) {
+                    const firstPlatform = unconnectedPlatforms[0];
+                    openPlatformDirect(firstPlatform);
+                    return;
+                } else {
+                    showToast('Please connect platforms to repost', true);
+                    return;
+                }
+            }
+            
+            saveToHistory();
+            
+            const newPost = {
+                id: animalPosts.length > 0 ? Math.max(...animalPosts.map(p => p.id)) + 1 : 1,
+                content: post.content,
+                date: new Date(),
+                platforms: post.platforms,
+                media: post.media,
+                audience: post.audience,
+                status: "published",
+                animal: post.animal,
+                icon: post.icon
+            };
+            
+            animalPosts.push(newPost);
+            
+            updateUI();
+            
+            showToast('Post republished successfully!');
+        }
+        
+        function renderBinPosts() {
+            const platformFilterValue = binPlatformFilter.value;
+            const dateFilterValue = binDateFilter.value;
+            const searchValue = binSearch.value.toLowerCase();
+            
+            const filteredPosts = deletedPosts.filter(post => {
+                if (platformFilterValue !== 'all' && !post.platforms.includes(platformFilterValue)) {
+                    return false;
+                }
+                
+                if (dateFilterValue !== 'all') {
+                    const postDate = new Date(post.deletedAt);
+                    const today = new Date();
+                    
+                    if (dateFilterValue === 'today') {
+                        if (postDate.toDateString() !== today.toDateString()) {
+                            return false;
+                        }
+                    } else if (dateFilterValue === 'week') {
+                        const startOfWeek = new Date(today);
+                        startOfWeek.setDate(today.getDate() - today.getDay());
+                        startOfWeek.setHours(0, 0, 0, 0);
+                        
+                        const endOfWeek = new Date(startOfWeek);
+                        endOfWeek.setDate(startOfWeek.getDate() + 6);
+                        endOfWeek.setHours(23, 59, 59, 999);
+                        
+                        if (postDate < startOfWeek || postDate > endOfWeek) {
+                            return false;
+                        }
+                    } else if (dateFilterValue === 'month') {
+                        if (postDate.getMonth() !== today.getMonth() || postDate.getFullYear() !== today.getFullYear()) {
+                            return false;
+                        }
+                    }
+                }
+                
+                if (searchValue && !post.content.toLowerCase().includes(searchValue)) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            const sortedPosts = [...filteredPosts].sort((a, b) => new Date(b.deletedAt) - new Date(a.deletedAt));
+            
+            binPostsElement.textContent = deletedPosts.length;
+            
+            binPostsList.innerHTML = '';
+            
+            if (sortedPosts.length === 0) {
+                binPostsList.innerHTML = `
+                    <div class="empty-library">
+                        <i class="fas fa-trash"></i>
+                        <p>No deleted posts found</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            sortedPosts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('library-post', 'bin-post');
+                
+                let platformBadges = '';
+                post.platforms.forEach(platform => {
+                    platformBadges += `<span class="platform-badge platform-${platform}">
+                        <i class="fab fa-${platform}"></i> ${platform.charAt(0).toUpperCase() + platform.slice(1)}
+                    </span>`;
+                });
+                
+                let mediaPreview = '';
+                if (post.media && post.media.length > 0) {
+                    mediaPreview = '<div class="post-media">';
+                    post.media.forEach(media => {
+                        if (media.type === 'image') {
+                            mediaPreview += `<div class="post-media-item"><img src="${media.src}" alt="Post media"></div>`;
+                        } else if (media.type === 'video') {
+                            mediaPreview += `<div class="post-media-item"><video src="${media.src}" controls></video></div>`;
+                        } else if (media.type === 'audio') {
+                            mediaPreview += `<div class="post-media-item"><audio src="${media.src}" controls></audio></div>`;
+                        }
+                    });
+                    mediaPreview += '</div>';
+                }
+                
+                postElement.innerHTML = `
+                    <div class="library-post-content">
+                        <div class="animal-icon">${post.icon}</div>
+                        <div class="library-post-text">${post.content}</div>
+                        ${mediaPreview}
+                        <div class="library-post-meta">
+                            <span>Deleted: ${formatDateDisplay(post.deletedAt)}</span>
+                            <span>${formatTimeDisplay(post.deletedAt)}</span>
+                            <span>Audience: ${post.audience}</span>
+                            <span class="post-status status-deleted">Deleted</span>
+                        </div>
+                        <div class="post-platforms">
+                            ${platformBadges}
+                        </div>
+                    </div>
+                    <div class="library-post-actions">
+                        <input type="checkbox" class="post-checkbox" data-id="${post.id}">
+                        <button class="library-action-btn restore" data-id="${post.id}" title="Restore">
+                            <i class="fas fa-undo"></i>
+                        </button>
+                    </div>
+                `;
+                
+                binPostsList.appendChild(postElement);
+            });
+            
+            binPostsList.querySelectorAll('.library-action-btn.restore').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    restorePost(postId);
+                });
+            });
+            
+            binPostsList.querySelectorAll('.post-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', updateSelectedCount);
+            });
+            
+            updateSelectedCount();
+        }
+        
+        function updateSelectedCount() {
+            const selectedPosts = binPostsList.querySelectorAll('.post-checkbox:checked');
+            selectedPostsElement.textContent = selectedPosts.length;
+        }
+        
+        function restorePost(postId) {
+            const index = deletedPosts.findIndex(p => p.id === postId);
+            if (index !== -1) {
+                const post = deletedPosts[index];
+                
+                saveToHistory();
+                
+                post.status = post.originalStatus || 'draft';
+                delete post.deletedAt;
+                delete post.originalStatus;
+                
+                animalPosts.push(post);
+                
+                deletedPosts.splice(index, 1);
+                
+                updateUI();
+                showToast('Post restored successfully!');
+            }
+        }
+        
+        function restoreSelectedPosts() {
+            const selectedCheckboxes = binPostsList.querySelectorAll('.post-checkbox:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                showToast('Please select posts to restore', true);
+                return;
+            }
+            
+            saveToHistory();
+            
+            const postsToRestore = [];
+            
+            selectedCheckboxes.forEach(checkbox => {
+                const postId = parseInt(checkbox.getAttribute('data-id'));
+                const index = deletedPosts.findIndex(p => p.id === postId);
+                if (index !== -1) {
+                    postsToRestore.push(deletedPosts[index]);
+                }
+            });
+            
+            postsToRestore.forEach(post => {
+                post.status = post.originalStatus || 'draft';
+                delete post.deletedAt;
+                delete post.originalStatus;
+                
+                animalPosts.push(post);
+                
+                const index = deletedPosts.findIndex(p => p.id === post.id);
+                if (index !== -1) {
+                    deletedPosts.splice(index, 1);
+                }
+            });
+            
+            updateUI();
+            showToast(`${postsToRestore.length} posts restored successfully!`);
+        }
+        
+        function emptyBinConfirmed() {
+            saveToHistory();
+            
+            deletedPosts = [];
+            
+            updateUI();
+            showToast('Bin emptied successfully!');
+        }
+        
+        function updateLibraryStats() {
+            const totalPosts = animalPosts.length;
+            const publishedPosts = animalPosts.filter(post => post.status === 'published').length;
+            const scheduledPosts = animalPosts.filter(post => post.status === 'scheduled').length;
+            const draftPosts = animalPosts.filter(post => post.status === 'draft').length;
+            
+            totalPostsElement.textContent = totalPosts;
+            publishedPostsElement.textContent = publishedPosts;
+            scheduledPostsElement.textContent = scheduledPosts;
+            draftPostsElement.textContent = draftPosts;
+        }
+        
+        function renderPostLibraries() {
+            const platformFilterValue = platformFilter.value;
+            const dateFilterValue = dateFilter.value;
+            const searchValue = librarySearch.value.toLowerCase();
+            
+            const filteredPosts = animalPosts.filter(post => {
+                if (platformFilterValue !== 'all' && !post.platforms.includes(platformFilterValue)) {
+                    return false;
+                }
+                
+                if (dateFilterValue !== 'all') {
+                    const postDate = new Date(post.date);
+                    const today = new Date();
+                    
+                    if (dateFilterValue === 'today') {
+                        if (postDate.toDateString() !== today.toDateString()) {
+                            return false;
+                        }
+                    } else if (dateFilterValue === 'week') {
+                        const startOfWeek = new Date(today);
+                        startOfWeek.setDate(today.getDate() - today.getDay());
+                        startOfWeek.setHours(0, 0, 0, 0);
+                        
+                        const endOfWeek = new Date(startOfWeek);
+                        endOfWeek.setDate(startOfWeek.getDate() + 6);
+                        endOfWeek.setHours(23, 59, 59, 999);
+                        
+                        if (postDate < startOfWeek || postDate > endOfWeek) {
+                            return false;
+                        }
+                    } else if (dateFilterValue === 'month') {
+                        if (postDate.getMonth() !== today.getMonth() || postDate.getFullYear() !== today.getFullYear()) {
+                            return false;
+                        }
+                    }
+                }
+                
+                if (searchValue && !post.content.toLowerCase().includes(searchValue)) {
+                    return false;
+                }
+                
+                return true;
+            });
+            
+            const sortedPosts = [...filteredPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            renderLibraryPosts(sortedPosts, allPostsList, 'all');
+            renderLibraryPosts(sortedPosts.filter(post => post.status === 'published'), publishedPostsList, 'published');
+            renderLibraryPosts(sortedPosts.filter(post => post.status === 'scheduled'), scheduledPostsList, 'scheduled');
+            renderLibraryPosts(sortedPosts.filter(post => post.status === 'draft'), draftPostsList, 'draft');
+        }
+        
+        function renderLibraryPosts(posts, container, libraryType) {
+            container.innerHTML = '';
+            
+            if (posts.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-library">
+                        <i class="fas fa-inbox"></i>
+                        <p>No ${libraryType === 'all' ? '' : libraryType + ' '}posts found</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            posts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('library-post');
+                
+                const postDate = new Date(post.date);
+                const now = new Date();
+                const isPast = postDate < now;
+                
+                let platformBadges = '';
+                post.platforms.forEach(platform => {
+                    platformBadges += `<span class="platform-badge platform-${platform}">
+                        <i class="fab fa-${platform}"></i> ${platform.charAt(0).toUpperCase() + platform.slice(1)}
+                    </span>`;
+                });
+                
+                let mediaPreview = '';
+                if (post.media && post.media.length > 0) {
+                    mediaPreview = '<div class="post-media">';
+                    post.media.forEach(media => {
+                        if (media.type === 'image') {
+                            mediaPreview += `<div class="post-media-item"><img src="${media.src}" alt="Post media"></div>`;
+                        } else if (media.type === 'video') {
+                            mediaPreview += `<div class="post-media-item"><video src="${media.src}" controls></video></div>`;
+                        } else if (media.type === 'audio') {
+                            mediaPreview += `<div class="post-media-item"><audio src="${media.src}" controls></audio></div>`;
+                        }
+                    });
+                    mediaPreview += '</div>';
+                }
+                
+                let statusText = '';
+                let statusClass = '';
+                
+                if (post.status === 'published') {
+                    statusText = 'Published';
+                    statusClass = 'status-published';
+                } else if (post.status === 'scheduled') {
+                    statusText = isPast ? 'Published' : 'Scheduled';
+                    statusClass = isPast ? 'status-published' : 'status-scheduled';
+                } else if (post.status === 'draft') {
+                    statusText = 'Draft';
+                    statusClass = 'status-draft';
+                }
+                
+                postElement.innerHTML = `
+                    <div class="library-post-content">
+                        <div class="animal-icon">${post.icon}</div>
+                        <div class="library-post-text">${post.content}</div>
+                        ${mediaPreview}
+                        <div class="library-post-meta">
+                            <span>${formatDateDisplay(post.date)}</span>
+                            <span>${formatTimeDisplay(post.date)}</span>
+                            <span>Audience: ${post.audience}</span>
+                            <span class="post-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="post-platforms">
+                            ${platformBadges}
+                        </div>
+                    </div>
+                    <div class="library-post-actions">
+                        ${post.status === 'published' ? `
+                            <button class="library-action-btn repost" data-id="${post.id}" title="Repost">
+                                <i class="fas fa-share"></i>
+                            </button>
+                        ` : ''}
+                        <button class="library-action-btn edit" data-id="${post.id}" title="Edit">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="library-action-btn delete" data-id="${post.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                container.appendChild(postElement);
+            });
+            
+            container.querySelectorAll('.library-action-btn.edit').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    showConfirmation('edit', postId);
+                });
+            });
+            
+            container.querySelectorAll('.library-action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    showConfirmation('delete', postId);
+                });
+            });
+            
+            container.querySelectorAll('.library-action-btn.repost').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    showConfirmation('repost', postId);
+                });
+            });
+        }
+        
+        function handleRecurringFiles(files) {
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    const mediaItem = document.createElement('div');
+                    mediaItem.classList.add('media-item');
+                    
+                    if (file.type.startsWith('image/')) {
+                        mediaItem.innerHTML = `
+                            <img src="${e.target.result}" alt="Uploaded media">
+                            <button class="remove-media">&times;</button>
+                        `;
+                    } else if (file.type.startsWith('video/')) {
+                        mediaItem.innerHTML = `
+                            <video controls>
+                                <source src="${e.target.result}" type="${file.type}">
+                                Your browser does not support the video tag.
+                            </video>
+                            <button class="remove-media">&times;</button>
+                        `;
+                    } else if (file.type.startsWith('audio/')) {
+                        mediaItem.innerHTML = `
+                            <audio controls>
+                                <source src="${e.target.result}" type="${file.type}">
+                                Your browser does not support the audio tag.
+                            </audio>
+                            <button class="remove-media">&times;</button>
+                        `;
+                    }
+                    
+                    recurringMediaPreview.appendChild(mediaItem);
+                    
+                    mediaItem.querySelector('.remove-media').addEventListener('click', function() {
+                        mediaItem.remove();
+                    });
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        function getSelectedRecurringPlatforms() {
+            const selectedPlatforms = [];
+            document.querySelectorAll('#recurring-section .platform-checkbox:checked').forEach(checkbox => {
+                selectedPlatforms.push(checkbox.value);
+            });
+            return selectedPlatforms;
+        }
+        
+        function getSelectedRecurringAudience() {
+            return document.querySelector('#recurring-section input[name="recurring-audience"]:checked').value;
+        }
+        
+        function getRecurringMediaFiles() {
+            const mediaItems = [];
+            recurringMediaPreview.querySelectorAll('.media-item').forEach(item => {
+                const img = item.querySelector('img');
+                const video = item.querySelector('video');
+                const audio = item.querySelector('audio');
+                
+                if (img) {
+                    mediaItems.push({ type: 'image', src: img.src });
+                } else if (video) {
+                    mediaItems.push({ type: 'video', src: video.querySelector('source').src });
+                } else if (audio) {
+                    mediaItems.push({ type: 'audio', src: audio.querySelector('source').src });
+                }
+            });
+            return mediaItems;
+        }
+        
+        function createRecurringPost() {
+            const content = recurringContent.value.trim();
+            const startDate = recurringStartDate.value;
+            const endDate = recurringEndDate.value;
+            const time = recurringTime.value;
+            const selectedPlatforms = getSelectedRecurringPlatforms();
+            const audience = getSelectedRecurringAudience();
+            const media = getRecurringMediaFiles();
+            
+            if (!content) {
+                showToast('Please enter post content', true);
+                return;
+            }
+            
+            if (!startDate) {
+                showToast('Please select a start date', true);
+                return;
+            }
+            
+            if (!endDate) {
+                showToast('Please select an end date', true);
+                return;
+            }
+            
+            if (!time) {
+                showToast('Please select a time', true);
+                return;
+            }
+            
+            if (selectedPlatforms.length === 0) {
+                showToast('Please select at least one platform', true);
+                return;
+            }
+            
+            if (new Date(endDate) <= new Date(startDate)) {
+                showToast('End date must be after start date', true);
+                return;
+            }
+            
+            const unconnectedPlatforms = selectedPlatforms.filter(platform => !checkPlatformConnection(platform));
+            
+            if (unconnectedPlatforms.length > 0) {
+                const platformNames = unconnectedPlatforms.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ');
+                
+                if (confirm(`You need to connect to ${platformNames} first. Connect now?`)) {
+                    const firstPlatform = unconnectedPlatforms[0];
+                    openPlatformDirect(firstPlatform);
+                    return;
+                } else {
+                    showToast('Please connect platforms to create recurring posts', true);
+                    return;
+                }
+            }
+            
+            const animal = getRandomAnimal();
+            
+            const newRecurringPost = {
+                id: recurringPosts.length > 0 ? Math.max(...recurringPosts.map(p => p.id)) + 1 : 1,
+                content: content,
+                startDate: startDate,
+                endDate: endDate,
+                time: time,
+                platforms: selectedPlatforms,
+                media: media,
+                audience: audience,
+                status: "active",
+                animal: animal.name,
+                icon: animal.icon,
+                postedDates: []
+            };
+            
+            recurringPosts.push(newRecurringPost);
+            
+            renderRecurringPosts();
+            
+            recurringContent.value = '';
+            recurringStartDate.value = '';
+            recurringEndDate.value = '';
+            recurringTime.value = '';
+            document.querySelectorAll('#recurring-section .platform-checkbox').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            document.getElementById('recurring-audience-public').checked = true;
+            clearRecurringMediaPreview();
+            
+            showToast('Recurring post created successfully!');
+        }
+        
+        function clearRecurringMediaPreview() {
+            recurringMediaPreview.innerHTML = '';
+        }
+        
+        function renderRecurringPosts() {
+            recurringPostsList.innerHTML = '';
+            
+            const sortedPosts = [...recurringPosts].sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+            
+            sortedPosts.forEach(post => {
+                const postElement = document.createElement('div');
+                postElement.classList.add('recurring-post');
+                
+                let platformBadges = '';
+                post.platforms.forEach(platform => {
+                    platformBadges += `<span class="platform-badge platform-${platform}">
+                        <i class="fab fa-${platform}"></i> ${platform.charAt(0).toUpperCase() + platform.slice(1)}
+                    </span>`;
+                });
+                
+                let mediaPreview = '';
+                if (post.media && post.media.length > 0) {
+                    mediaPreview = '<div class="post-media">';
+                    post.media.forEach(media => {
+                        if (media.type === 'image') {
+                            mediaPreview += `<div class="post-media-item"><img src="${media.src}" alt="Post media"></div>`;
+                        } else if (media.type === 'video') {
+                            mediaPreview += `<div class="post-media-item"><video src="${media.src}" controls></video></div>`;
+                        } else if (media.type === 'audio') {
+                            mediaPreview += `<div class="post-media-item"><audio src="${media.src}" controls></audio></div>`;
+                        }
+                    });
+                    mediaPreview += '</div>';
+                }
+                
+                let statusText = '';
+                let statusClass = '';
+                
+                if (post.status === 'active') {
+                    statusText = 'Active';
+                    statusClass = 'status-active';
+                } else if (post.status === 'completed') {
+                    statusText = 'Completed';
+                    statusClass = 'status-completed';
+                } else if (post.status === 'paused') {
+                    statusText = 'Paused';
+                    statusClass = 'status-paused';
+                }
+                
+                postElement.innerHTML = `
+                    <div class="recurring-post-content">
+                        <div class="animal-icon">${post.icon}</div>
+                        <div class="recurring-post-text">${post.content}</div>
+                        ${mediaPreview}
+                        <div class="recurring-post-meta">
+                            <span>From: ${formatDateDisplay(new Date(post.startDate))}</span>
+                            <span>To: ${formatDateDisplay(new Date(post.endDate))}</span>
+                            <span>Time: ${post.time}</span>
+                            <span>Audience: ${post.audience}</span>
+                            <span class="recurring-status ${statusClass}">${statusText}</span>
+                        </div>
+                        <div class="post-platforms">
+                            ${platformBadges}
+                        </div>
+                    </div>
+                    <div class="recurring-post-actions">
+                        <button class="recurring-action-btn post-now" data-id="${post.id}" title="Post Now">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                        <button class="recurring-action-btn pause" data-id="${post.id}" title="${post.status === 'active' ? 'Pause' : 'Resume'}">
+                            <i class="fas fa-${post.status === 'active' ? 'pause' : 'play'}"></i>
+                        </button>
+                        <button class="recurring-action-btn delete" data-id="${post.id}" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                recurringPostsList.appendChild(postElement);
+            });
+            
+            recurringPostsList.querySelectorAll('.recurring-action-btn.post-now').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    postRecurringNow(postId);
+                });
+            });
+            
+            recurringPostsList.querySelectorAll('.recurring-action-btn.pause').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    toggleRecurringPostStatus(postId);
+                });
+            });
+            
+            recurringPostsList.querySelectorAll('.recurring-action-btn.delete').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = parseInt(this.getAttribute('data-id'));
+                    deleteRecurringPost(postId);
+                });
+            });
+        }
+        
+        function postRecurringNow(postId) {
+            const post = recurringPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            const unconnectedPlatforms = post.platforms.filter(platform => !checkPlatformConnection(platform));
+            
+            if (unconnectedPlatforms.length > 0) {
+                const platformNames = unconnectedPlatforms.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(', ');
+                
+                if (confirm(`You need to connect to ${platformNames} first. Connect now?`)) {
+                    const firstPlatform = unconnectedPlatforms[0];
+                    openPlatformDirect(firstPlatform);
+                    return;
+                } else {
+                    showToast('Please connect platforms to post', true);
+                    return;
+                }
+            }
+            
+            saveToHistory();
+            
+            const now = new Date();
+            const [hours, minutes] = post.time.split(':');
+            const postDate = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes);
+            
+            const newPost = {
+                id: animalPosts.length > 0 ? Math.max(...animalPosts.map(p => p.id)) + 1 : 1,
+                content: post.content,
+                date: postDate,
+                platforms: post.platforms,
+                media: post.media,
+                audience: post.audience,
+                status: "published",
+                animal: post.animal,
+                icon: post.icon
+            };
+            
+            animalPosts.push(newPost);
+            
+            updateUI();
+            
+            showToast('Recurring post published now!');
+        }
+        
+        function toggleRecurringPostStatus(postId) {
+            const post = recurringPosts.find(p => p.id === postId);
+            if (!post) return;
+            
+            if (post.status === 'active') {
+                post.status = 'paused';
+            } else {
+                post.status = 'active';
+            }
+            
+            renderRecurringPosts();
+            
+            showToast(`Recurring post ${post.status === 'active' ? 'resumed' : 'paused'}!`);
+        }
+        
+        function deleteRecurringPost(postId) {
+            const index = recurringPosts.findIndex(p => p.id === postId);
+            if (index !== -1) {
+                recurringPosts.splice(index, 1);
+                
+                renderRecurringPosts();
+                
+                showToast('Recurring post deleted!');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            setInterval(changeBackgroundColor, 10000);
+            changeBackgroundColor();
+            
+            renderCalendar(currentMonth, currentYear);
+            renderScheduledPosts();
+            updateLibraryStats();
+            renderPostLibraries();
+            renderBinPosts();
+            renderRecurringPosts();
+            updateHistoryButtons();
+            initScrollToTop();
+            
+            prevMonthBtn.addEventListener('click', function() {
+                currentMonth--;
+                if (currentMonth < 0) {
+                    currentMonth = 11;
+                    currentYear--;
+                }
+                renderCalendar(currentMonth, currentYear);
+            });
+            
+            nextMonthBtn.addEventListener('click', function() {
+                currentMonth++;
+                if (currentMonth > 11) {
+                    currentMonth = 0;
+                    currentYear++;
+                }
+                renderCalendar(currentMonth, currentYear);
+            });
+            
+            todayBtn.addEventListener('click', function() {
+                currentDate = new Date();
+                currentMonth = currentDate.getMonth();
+                currentYear = currentDate.getFullYear();
+                renderCalendar(currentMonth, currentYear);
+            });
+            
+            schedulePostBtn.addEventListener('click', function() {
+                openScheduleModal();
+            });
+            
+            closeScheduleModal.addEventListener('click', function() {
+                scheduleModal.style.display = 'none';
+                clearMediaPreview();
+            });
+            
+            cancelSchedule.addEventListener('click', function() {
+                scheduleModal.style.display = 'none';
+                clearMediaPreview();
+            });
+            
+            saveSchedule.addEventListener('click', function() {
+                saveScheduledPost();
+            });
+            
+            postNow.addEventListener('click', function() {
+                postImmediately();
+            });
+            
+            saveDraft.addEventListener('click', function() {
+                saveAsDraft();
+            });
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                sidebar.classList.toggle('active');
+            });
+            
+            confirmCancel.addEventListener('click', function() {
+                confirmationModal.style.display = 'none';
+                pendingAction = null;
+                pendingPostId = null;
+            });
+            
+            confirmAction.addEventListener('click', function() {
+                if (pendingAction === 'delete') {
+                    deletePostConfirmed(pendingPostId);
+                } else if (pendingAction === 'edit') {
+                    editPostConfirmed(pendingPostId);
+                } else if (pendingAction === 'repost') {
+                    repostConfirmed(pendingPostId);
+                } else if (pendingAction === 'empty-bin') {
+                    emptyBinConfirmed();
+                }
+                confirmationModal.style.display = 'none';
+                pendingAction = null;
+                pendingPostId = null;
+            });
+            
+            undoBtn.addEventListener('click', function() {
+                if (historyIndex > 0) {
+                    historyIndex--;
+                    animalPosts = JSON.parse(JSON.stringify(history[historyIndex]));
+                    updateUI();
+                    updateHistoryButtons();
+                    showToast('Undo successful!');
+                }
+            });
+            
+            redoBtn.addEventListener('click', function() {
+                if (historyIndex < history.length - 1) {
+                    historyIndex++;
+                    animalPosts = JSON.parse(JSON.stringify(history[historyIndex]));
+                    updateUI();
+                    updateHistoryButtons();
+                    showToast('Redo successful!');
+                }
+            });
+            
+            exitBtn.addEventListener('click', function() {
+                if (window.history.length > 1) {
+                    window.history.back();
+                } else {
+                    window.close();
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    navLinks.forEach(nav => nav.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetTab = this.getAttribute('data-tab');
+                    contentSections.forEach(section => {
+                        section.classList.remove('active');
+                        if (section.id === `${targetTab}-section`) {
+                            section.classList.add('active');
+                        }
+                    });
+                    
+                    if (window.innerWidth <= 768) {
+                        sidebar.classList.remove('active');
+                    }
+                });
+            });
+            
+            libraryTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    libraryTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const targetLibrary = this.getAttribute('data-library');
+                    libraryContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `library-${targetLibrary}`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            platformFilter.addEventListener('change', renderPostLibraries);
+            dateFilter.addEventListener('change', renderPostLibraries);
+            librarySearch.addEventListener('input', function() {
+                setTimeout(renderPostLibraries, 300);
+            });
+            
+            binPlatformFilter.addEventListener('change', renderBinPosts);
+            binDateFilter.addEventListener('change', renderBinPosts);
+            binSearch.addEventListener('input', function() {
+                setTimeout(renderBinPosts, 300);
+            });
+            
+            restoreSelectedBtn.addEventListener('click', function() {
+                restoreSelectedPosts();
+            });
+            
+            emptyBinBtn.addEventListener('click', function() {
+                showConfirmation('empty-bin');
+            });
+            
+            uploadArea.addEventListener('click', function() {
+                mediaUpload.click();
+            });
+            
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.background = 'rgba(91, 107, 240, 0.15)';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.background = 'rgba(91, 107, 240, 0.05)';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.background = 'rgba(91, 107, 240, 0.05)';
+                handleFiles(e.dataTransfer.files);
+            });
+            
+            mediaUpload.addEventListener('change', function() {
+                handleFiles(this.files);
+            });
+            
+            createRecurringPostBtn.addEventListener('click', function() {
+                createRecurringPost();
+            });
+            
+            recurringUploadArea.addEventListener('click', function() {
+                recurringMediaUpload.click();
+            });
+            
+            recurringUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                recurringUploadArea.style.background = 'rgba(91, 107, 240, 0.15)';
+            });
+            
+            recurringUploadArea.addEventListener('dragleave', function() {
+                recurringUploadArea.style.background = 'rgba(91, 107, 240, 0.05)';
+            });
+            
+            recurringUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                recurringUploadArea.style.background = 'rgba(91, 107, 240, 0.05)';
+                handleRecurringFiles(e.dataTransfer.files);
+            });
+            
+            recurringMediaUpload.addEventListener('change', function() {
+                handleRecurringFiles(this.files);
+            });
+            
+            scrollToTopBtn.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            managePlatformsBtn.addEventListener('click', showPlatformsModal);
+            closePlatformsModal.addEventListener('click', () => {
+                platformsModal.style.display = 'none';
+            });
+            
+            window.addEventListener('click', function(event) {
+                if (event.target === scheduleModal) {
+                    scheduleModal.style.display = 'none';
+                    clearMediaPreview();
+                }
+                if (event.target === confirmationModal) {
+                    confirmationModal.style.display = 'none';
+                    pendingAction = null;
+                    pendingPostId = null;
+                }
+                if (event.target === platformsModal) {
+                    platformsModal.style.display = 'none';
+                }
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (window.innerWidth <= 768 && 
+                    !sidebar.contains(event.target) && 
+                    !mobileMenuBtn.contains(event.target) &&
+                    sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            window.addEventListener('beforeunload', function() {
+                animalPosts = null;
+                deletedPosts = null;
+                recurringPosts = null;
+                history = null;
+            });
+        });
+    </script>
+</body>
+</html>
